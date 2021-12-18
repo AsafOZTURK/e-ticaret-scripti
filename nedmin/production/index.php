@@ -1,5 +1,6 @@
 <?php
 include "header.php";
+
 ?>
 
 <div class="right_col" role="main">

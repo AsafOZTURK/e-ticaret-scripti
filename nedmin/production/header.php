@@ -1,4 +1,6 @@
 <?php 
+ob_start();
+session_start();
 
 include "../netting/baglan.php";
 
@@ -7,6 +9,27 @@ $ayarsor -> execute(array(
     'id' => 0
 ));
 $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
+
+$kullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kullanici_mail=:mail");
+$kullanicisor -> execute(array(
+    'mail' => $_SESSION["kullanici_mail"]
+));
+
+$say = $kullanicisor -> rowCount();
+
+$kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
+
+
+if ($say==0) {
+    Header("Location:login.php?durum=izinsiz");
+    exit;
+} 
+/*  1. YÖNTEM BU AMA GÜVENİLİR DEĞİL O YÜZDEN KULLANIMIYORUZ
+if (!isset($_SESSION["kullanici_mail"])) {
+
+} else {
+
+}*/
 
 ?>
 
@@ -47,7 +70,7 @@ $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+                        <a href="index.php" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
                     </div>
 
                     <div class="clearfix"></div>
@@ -55,11 +78,11 @@ $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
                     <!-- menu profile quick info -->
                     <div class="profile clearfix">
                         <div class="profile_pic">
-                            <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                            <img src="<?php echo $kullanicicek["kullanici_resim"]; ?>" alt="..." class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
-                            <span>Welcome,</span>
-                            <h2>John Doe</h2>
+                            <span>Hoşgeldin</span>
+                            <h2><?php echo $kullanicicek["kullanici_adsoyad"] ?></h2>
                         </div>
                     </div>
                     <!-- /menu profile quick info -->
@@ -73,6 +96,8 @@ $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
                             <ul class="nav side-menu">
                                 <li><a href="index.php"><i class="fa fa-home"></i>ANASAYFA</a></li>
                                 <li><a href="hakkimizda.php"><i class="fa fa-info"></i>Hakkımızda</a></li>
+                                <li><a href="menu.php"><i class="fa fa-bars"></i>Menüler</a></li>
+                                <li><a href="kullanici.php"><i class="fa fa-user"></i>Kullanıcı İşlemleri</a></li>
                                 <li><a><i class="fa fa-cogs"></i>Site Ayarları<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="genel-ayar.php">Genel Ayarlar</a></li>
@@ -117,19 +142,12 @@ $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="images/img.jpg" alt="">John Doe
+                                    <img src="<?php echo $kullanicicek["kullanici_resim"] ?>" alt=""><?php echo $kullanicicek["kullanici_adsoyad"] ?>
                                     <span class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                    <li><a href="javascript:;"> Profile</a></li>
-                                    <li>
-                                        <a href="javascript:;">
-                                            <span class="badge bg-red pull-right">50%</span>
-                                            <span>Settings</span>
-                                        </a>
-                                    </li>
-                                    <li><a href="javascript:;">Help</a></li>
-                                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                                    <li><a href="javascript:;">Profil Bilgilerim</a></li>
+                                    <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i>Çıkış Yap</a></li>
                                 </ul>
                             </li>
 
