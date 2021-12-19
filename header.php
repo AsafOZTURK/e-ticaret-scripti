@@ -50,7 +50,7 @@ $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
             <div class="container">
                 <div class="row">
                     <div class="col-xs-6 col-md-4 main-logo">
-                        <a href="index.php"><img src="images\logo.png" alt="logo" class="logo img-responsive"></a>
+                        <a href="index.php"><img width="180" src="<?php echo $ayarcek['ayar_logo']; ?>" alt="logo" class="logo img-responsive"></a>
                     </div>
                     <div class="col-md-8">
                         <div class="pushright">
@@ -136,20 +136,15 @@ $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
                                     while ($menucek = $menusor->fetch(PDO::FETCH_ASSOC)) { ?>
                                         <li><a href="
                                         
-                                        <?php 
+                                        <?php
                                         if (!empty($menucek['menu_url'])) {
 
                                             echo $menucek["menu_url"];
-
                                         } else {
 
-                                            echo "sayfa-".seo($menucek['menu_ad']);
+                                            echo "sayfa-" . seo($menucek['menu_ad']);
                                         }
-                            
-
-                                        ?>
-                                        
-                                        
+                                        ?>                                   
                                         
                                         <?php echo $vericek["menu_seourl"]; ?>"><?php echo $menucek["menu_ad"]; ?></a></li>
 
@@ -208,7 +203,12 @@ $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                     </div>
+                    <!-- <ul class="small-menu">
+                        <li><a href="" class="myacc">My Account</a></li>
+                        <li><a href="" class="myshop">Shopping Chart</a></li>
+                        <li><a href="" class="mycheck">Checkout</a></li>
+                    </ul> -->
                 </div>
             </div>
         </div>
-        <!--end main-nav -->
+<!--end main-nav -->

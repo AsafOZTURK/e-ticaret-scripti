@@ -3,6 +3,7 @@ ob_start();
 session_start();
 
 include "../netting/baglan.php";
+include "fonksiyon.php";
 
 $ayarsor = $db->prepare("SELECT * FROM ayar WHERE ayar_id=:id");
 $ayarsor -> execute(array(
@@ -95,9 +96,6 @@ if (!isset($_SESSION["kullanici_mail"])) {
                             <h3>General</h3>
                             <ul class="nav side-menu">
                                 <li><a href="index.php"><i class="fa fa-home"></i>ANASAYFA</a></li>
-                                <li><a href="hakkimizda.php"><i class="fa fa-info"></i>Hakkımızda</a></li>
-                                <li><a href="menu.php"><i class="fa fa-bars"></i>Menüler</a></li>
-                                <li><a href="kullanici.php"><i class="fa fa-user"></i>Kullanıcı İşlemleri</a></li>
                                 <li><a><i class="fa fa-cogs"></i>Site Ayarları<span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="genel-ayar.php">Genel Ayarlar</a></li>
@@ -106,6 +104,10 @@ if (!isset($_SESSION["kullanici_mail"])) {
                                         <li><a href="sosyal-ayarlar.php">Sosyal Medya Ayarları</a></li>
                                         <li><a href="mail-ayarlar.php">Mail Ayarları</a></li>
                                     </ul>
+                                    <li><a href="menu.php"><i class="fa fa-bars"></i>Menüler</a></li>
+                                    <li><a href="slider.php"><i class="fa fa-image"></i>Slider</a></li>
+                                <li><a href="hakkimizda.php"><i class="fa fa-info"></i>Hakkımızda</a></li>
+                                <li><a href="kullanici.php"><i class="fa fa-user"></i>Kullanıcı İşlemleri</a></li>
                                 </li>
                             </ul>
                         </div>
