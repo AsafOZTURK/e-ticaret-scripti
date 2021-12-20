@@ -115,8 +115,8 @@ CREATE TABLE `kullanici` (
 --
 
 INSERT INTO `kullanici` (`kullanici_id`, `kullanici_zaman`, `kullanici_resim`, `kullanici_tc`, `kullanici_ad`, `kullanici_soyad`, `kullanici_mail`, `kullanici_gsm`, `kullanici_password`, `kullanici_adsoyad`, `kullanici_adres`, `kullanici_il`, `kullanici_ilce`, `kullanici_unvan`, `kullanici_yetki`, `kullanici_durum`) VALUES
-(1, '2021-12-15 23:07:07', 'https://www.technopat.net/sosyal/eklenti/dc-jpg.664852/', '11111111118', 'Mehmet Asaf ÖZTÜRK', ' TOLGA', 'maö', '05425364602', '123', 'Asaf ÖZTÜRK', 'Örnek Adres metni', 'Eskişehir', 'Tepebaşı', 'Yazılım Uzmanı', '5', 0),
-(2, '2021-12-15 23:07:07', 'https://www.technopat.net/sosyal/eklenti/dc-jpg.664852/', '11111111118', 'Mehmet Asaf', 'ÖZTÜRK', 'mehmetasafozturk@gmail.com', '05425364602', '123', 'Mehmet Asaf ÖZTÜRK', 'Örnek Adres metni', 'Eskişehir', 'Tepebaşı', 'Yazılım Uzmanı', '5', 0);
+(1, '2021-12-15 23:07:07', 'https://www.technopat.net/sosyal/eklenti/dc-jpg.664852/', '11111111118', 'Mehmet Asaf ÖZTÜRK', ' TOLGA', 'maö', '0850850850', '123', 'Asaf ÖZTÜRK', 'Örnek Adres metni', 'Eskişehir', 'Tepebaşı', 'Yazılım Uzmanı', '5', 0),
+(2, '2021-12-15 23:07:07', 'https://www.technopat.net/sosyal/eklenti/dc-jpg.664852/', '11111111118', 'Mehmet Asaf', 'ÖZTÜRK', '@gmail.com', '0850850850', '123', 'Mehmet Asaf ÖZTÜRK', 'Örnek Adres metni', 'Eskişehir', 'Tepebaşı', 'Yazılım Uzmanı', '5', 0);
 
 -- --------------------------------------------------------
 
