@@ -1,95 +1,244 @@
-<?php 
+<?php
 ob_start();
 session_start();
 
 include "baglan.php";
 include "../production/fonksiyon.php";
 
-
 if (isset($_POST["admingiris"])) {
-    $kullanicimail = $_POST["kullanici_mail"];
-    $kullanicipassword =($_POST["kullanici_password"]);
-    
-    $kullanicisor = $db -> prepare("SELECT * FROM kullanici WHERE kullanici_mail=:mail AND kullanici_password=:pass AND kullanici_yetki=:yetki");
+	$kullanicimail = $_POST["kullanici_mail"];
+	$kullanicipassword = ($_POST["kullanici_password"]);
 
-    $kullanicisor -> execute(array(
-        'mail' => $kullanicimail,
-        'pass' => $kullanicipassword,
-        'yetki' => 5
-    ));
+	$kullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kullanici_mail=:mail AND kullanici_password=:pass AND kullanici_yetki=:yetki");
 
-    $say = $kullanicisor -> rowCount();
+	$kullanicisor->execute(array(
+		'mail' => $kullanicimail,
+		'pass' => md5($kullanicipassword),
+		'yetki' => 5
+	));
 
-    if ($say==1) {
-        $_SESSION["kullanici_mail"] = $kullanicimail;
-        Header("Location:../production/index.php");
-        exit;
+	$say = $kullanicisor->rowCount();
 
-    } else {
-        Header("Location:../production/login.php?durum=no");
-        exit;
-    }
+	if ($say == 1) {
+		$_SESSION["kullanici_mail"] = $kullanicimail;
+		Header("Location:../production/index.php");
+		exit;
+	} else {
+		Header("Location:../production/login.php?durum=no");
+		exit;
+	}
+}
+
+
+if (isset($_POST['kullanicigiris'])) {
+
+	$kullanicimail = htmlspecialchars($_POST["kullanici_mail"]) ;
+	$kullanicipassword = htmlspecialchars($_POST["kullanici_password"]);
+
+	$kullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kullanici_mail=:mail AND kullanici_password=:pass AND kullanici_yetki=:yetki AND kullanici_durum=:durum");
+
+	$kullanicisor->execute(array(
+		'mail' => $kullanicimail,
+		'pass' => md5($kullanicipassword),
+		'yetki' => 1,
+		'durum' => 1
+	));
+
+	$say = $kullanicisor->rowCount();
+
+	if ($say == 1) {
+
+		$_SESSION["userkullanici_mail"] = $kullanicimail;
+		Header("Location:../../");
+		exit;
+
+	} else {
+
+		Header("Location:../../=durum=basarisizgiris");
+		exit;
+
+	}
+}
+
+
+if (isset($_POST["kullanicikaydet"])) {
+
+	$kullanici_adsoyad = htmlspecialchars($_POST['kullanici_adsoyad']);
+	$kullanici_mail = htmlspecialchars($_POST['kullanici_mail']);
+
+	$kullanici_passwordone = htmlspecialchars($_POST['kullanici_passwordone']);
+	$kullanici_passwordtwo = htmlspecialchars($_POST['kullanici_passwordtwo']);
+
+	if ($kullanici_passwordone==$kullanici_passwordtwo) {
+
+		if (strlen($kullanici_passwordone) >= 6) {
+
+			$kullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kullanici_mail=:mail");
+			$kullanicisor->execute(array(
+				'mail' => $_GET["kullanici_mail"]
+			));
+
+			$say = $kullanicisor->rowCount();
+
+			if ($say == 0) {
+
+				$password = md5($kullanici_passwordone);
+				$kullanici_yetki = 1;
+
+				$kullanicikaydet=$db->prepare("INSERT INTO kullanici SET
+					kullanici_adsoyad=:kullanici_adsoyad,
+					kullanici_mail=:kullanici_mail,
+					kullanici_password=:kullanici_password,
+					kullanici_yetki=:kullanici_yetki
+					");
+				$insert=$kullanicikaydet->execute(array(
+					'kullanici_adsoyad' => $kullanici_adsoyad,
+					'kullanici_mail' => $kullanici_mail,
+					'kullanici_password' => $password,
+					'kullanici_yetki' => $kullanici_yetki
+					));
+
+				if ($insert) {
+
+					Header("Location:../../index.php?durum=loginbasarili");
+					exit;
+
+				} else {
+
+					Header("Location:../../register.php?durum=basarisiz");
+					exit;
+				}
+			} else {
+
+				Header("Location:../../register.php?durum=mukerrerkayit");
+				exit;
+			}
+		} else {
+
+			Header("Location:../../register.php?durum=eksiksifre");
+			exit;
+		}
+	} else {
+
+		Header("Location:../../register.php?durum=farklisifre");
+		exit;
+	}
 }
 
 
 if (isset($_POST['kullaniciduzenle'])) {
 
-	$kullanici_id=$_POST['kullanici_id'];
+	$kullanici_id = $_POST['kullanici_id'];
 
-	$ayarkaydet=$db->prepare("UPDATE kullanici SET
+	$ayarkaydet = $db->prepare("UPDATE kullanici SET
 		kullanici_tc=:kullanici_tc,
 		kullanici_adsoyad=:kullanici_adsoyad,
         kullanici_gsm=:kullanici_gsm,
 		kullanici_durum=:kullanici_durum
 		WHERE kullanici_id={$_POST['kullanici_id']}");
 
-	$update=$ayarkaydet->execute(array(
+	$update = $ayarkaydet->execute(array(
 		'kullanici_tc' => $_POST['kullanici_tc'],
 		'kullanici_adsoyad' => $_POST['kullanici_adsoyad'],
-        'kullanici_gsm' => $_POST['kullanici_gsm'],
+		'kullanici_gsm' => $_POST['kullanici_gsm'],
 		'kullanici_durum' => $_POST['kullanici_durum']
-		));
+	));
 
 
 	if ($update) {
 
 		Header("Location:../production/kullanici-duzenle.php?kullanici_id=$kullanici_id&durum=ok");
-
 	} else {
 
 		Header("Location:../production/kullanici-duzenle.php?kullanici_id=$kullanici_id&durum=no");
 	}
+}
 
+
+if ($_GET["kullanicisil"] == 'ok') {
+	$sil = $db->prepare("DELETE FROM kullanici WHERE kullanici_id=:id");
+	$kontrol = $sil->execute(array(
+		'id' => $_GET["kullanici_id"]
+	));
+
+	if ($kontrol) {
+		Header("Location:../production/kullanici.php?sil=ok");
+	} else {
+		Header("Location:../production/kullanici.php?sil=no");
+	}
+}
+
+
+if (isset($_POST['userupdate'])) {
+
+	$kullanici_id = $_POST['kullanici_id'];
+
+	$ayarkaydet = $db->prepare("UPDATE kullanici SET
+		kullanici_resim=:kullanici_resim,
+		kullanici_tc=:kullanici_tc,
+		kullanici_ad=:kullanici_ad,
+		kullanici_soyad=:kullanici_soyad,
+		kullanici_adsoyad=:kullanici_adsoyad,
+        kullanici_gsm=:kullanici_gsm,
+		kullanici_adres=:kullanici_adres,
+		kullanici_il=:kullanici_il,
+		kullanici_ilce=:kullanici_ilce,
+		kullanici_unvan=:kullanici_unvan,
+		kullanici_durum=:kullanici_durum
+		WHERE kullanici_id= $kullanici_id
+		");
+
+	$update = $ayarkaydet->execute(array(
+		'kullanici_resim' => $_POST['kullanici_resim'],
+		'kullanici_tc' => $_POST['kullanici_tc'],
+		'kullanici_ad' => $_POST['kullanici_ad'],
+		'kullanici_soyad' => $_POST['kullanici_soyad'],
+		'kullanici_adsoyad' => $_POST['kullanici_adsoyad'],
+		'kullanici_gsm' => $_POST['kullanici_gsm'],
+		'kullanici_adres' => $_POST['kullanici_adres'],
+		'kullanici_il' => $_POST['kullanici_il'],
+		'kullanici_ilce' => $_POST['kullanici_ilce'],
+		'kullanici_unvan' => $_POST['kullanici_unvan'],
+		'kullanici_durum' => $_POST['kullanici_durum']
+	));
+
+
+	if ($update) {
+
+		Header("Location:../../hesabim.php?kullanici_id=$kullanici_id&durum=ok");
+	} else {
+
+		Header("Location:../../hesabim.php?kullanici_id=$kullanici_id&durum=no");
+	}
 }
 
 
 if (isset($_POST['logoduzenle'])) {
 
-    $uploads_dir = '../../dimg';
+	$uploads_dir = '../../dimg';
 
 	@$tmp_name = $_FILES['ayar_logo']["tmp_name"];
 	@$name = $_FILES['ayar_logo']["name"];
 
-	$benzersizsayi4=rand(20000,32000);
-	$refimgyol=substr($uploads_dir, 6)."/".$benzersizsayi4.$name;
+	$benzersizsayi4 = rand(20000, 32000);
+	$refimgyol = substr($uploads_dir, 6) . "/" . $benzersizsayi4 . $name;
 
 	@move_uploaded_file($tmp_name, "$uploads_dir/$benzersizsayi4$name");
 
-	
-	$duzenle=$db->prepare("UPDATE ayar SET
+
+	$duzenle = $db->prepare("UPDATE ayar SET
 		ayar_logo=:logo
 		WHERE ayar_id=0");
-	$update=$duzenle->execute(array(
+	$update = $duzenle->execute(array(
 		'logo' => $refimgyol
-		));
+	));
 
 	if ($update) {
 
-		$resimsilunlink=$_POST['eski_yol'];
+		$resimsilunlink = $_POST['eski_yol'];
 		unlink("../../$resimsilunlink");
 
 		Header("Location:../production/genel-ayar.php?durum=ok");
-
 	} else {
 
 		Header("Location:../production/genel-ayar.php?durum=no");
@@ -99,68 +248,66 @@ if (isset($_POST['logoduzenle'])) {
 
 if (isset($_POST['sliderekle'])) {
 
-    $uploads_dir = '../../dimg/slider';
+	$uploads_dir = '../../dimg/slider';
 	@$tmp_name = $_FILES['slider_resimyol']["tmp_name"];
 	@$name = $_FILES['slider_resim_yol']["name"];
 
-    $benzersizsayi1=rand(20000,32000);
-    $benzersizsayi2=rand(20000,32000);
-    $benzersizsayi3=rand(20000,32000);
-    $benzersizsayi4=rand(20000,32000);
-    $benzersizad = $benzersizsayi1.$benzersizsayi2.$benzersizsayi3.$benzersizsayi4;
+	$benzersizsayi1 = rand(20000, 32000);
+	$benzersizsayi2 = rand(20000, 32000);
+	$benzersizsayi3 = rand(20000, 32000);
+	$benzersizsayi4 = rand(20000, 32000);
+	$benzersizad = $benzersizsayi1 . $benzersizsayi2 . $benzersizsayi3 . $benzersizsayi4;
 
-    $refimgyol=substr($uploads_dir, 6)."/".$benzersizad.$name;
+	$refimgyol = substr($uploads_dir, 6) . "/" . $benzersizad . $name;
 	@move_uploaded_file($tmp_name, "$uploads_dir/$benzersizad$name");
 
-    $kaydet=$db->prepare("INSERT INTO slider SET
+	$kaydet = $db->prepare("INSERT INTO slider SET
 		slider_ad=:slider_ad,
         slider_sira=:slider_sira,
         slider_link=:slider_link,
         slider_resimyol=:slider_resimyol
         ");
 
-	$insert=$kaydet->execute(array(
+	$insert = $kaydet->execute(array(
 		'slider_ad' => $_POST['slider_ad'],
-        'slider_sira' => $_POST['slider_sira'],
-        'slider_link' => $_POST['slider_link'],
-        'slider_resimyol' => $refimgyol
-		));
+		'slider_sira' => $_POST['slider_sira'],
+		'slider_link' => $_POST['slider_link'],
+		'slider_resimyol' => $refimgyol
+	));
 
 	if ($insert) {
 
-		$resimsilunlink=$_POST['eski_yol'];
+		$resimsilunlink = $_POST['eski_yol'];
 		unlink("../../$resimsilunlink");
 
 		Header("Location:../production/slider.php?durum=ok");
-
 	} else {
 
 		Header("Location:../production/slider.php?durum=no");
 	}
-
 }
 
 
 if (isset($_POST['sliderduzenle'])) {
-	
-	if($_FILES['slider_resimyol']["size"] > 0)  { 
+
+	if ($_FILES['slider_resimyol']["size"] > 0) {
 
 		$uploads_dir = '../../dimg/slider';
 		@$tmp_name = $_FILES['slider_resimyol']["tmp_name"];
 		@$name = $_FILES['slider_resimyol']["name"];
 
-		$benzersizsayi1=rand(20000,32000);
-		$benzersizsayi2=rand(20000,32000);
-		$benzersizsayi3=rand(20000,32000);
-		$benzersizsayi4=rand(20000,32000);
-		$benzersizad=$benzersizsayi1.$benzersizsayi2.$benzersizsayi3.$benzersizsayi4;
+		$benzersizsayi1 = rand(20000, 32000);
+		$benzersizsayi2 = rand(20000, 32000);
+		$benzersizsayi3 = rand(20000, 32000);
+		$benzersizsayi4 = rand(20000, 32000);
+		$benzersizad = $benzersizsayi1 . $benzersizsayi2 . $benzersizsayi3 . $benzersizsayi4;
 
-		$refimgyol=substr($uploads_dir, 6)."/".$benzersizad.$name;
+		$refimgyol = substr($uploads_dir, 6) . "/" . $benzersizad . $name;
 		@move_uploaded_file($tmp_name, "$uploads_dir/$benzersizad$name");
 
-        $slider_id=$_POST['slider_id'];
+		$slider_id = $_POST['slider_id'];
 
-		$duzenle=$db->prepare("UPDATE slider SET
+		$duzenle = $db->prepare("UPDATE slider SET
 			slider_ad=:ad,
 			slider_link=:link,
 			slider_sira=:sira,
@@ -169,48 +316,45 @@ if (isset($_POST['sliderduzenle'])) {
 			WHERE slider_id={$_POST['slider_id']}
             ");
 
-		$update=$duzenle->execute(array(
+		$update = $duzenle->execute(array(
 			'ad' => $_POST['slider_ad'],
 			'link' => $_POST['slider_link'],
 			'sira' => $_POST['slider_sira'],
 			'durum' => $_POST['slider_durum'],
 			'resimyol' => $refimgyol,
-			));
+		));
 
 		if ($update) {
 
-			$resimsilunlink=$_POST['slider_resimyol'];
+			$resimsilunlink = $_POST['slider_resimyol'];
 			unlink("../../$resimsilunlink");
 
 			Header("Location:../production/slider-duzenle.php?slider_id=$slider_id&durum=ok");
-
 		} else {
 
 			Header("Location:../production/slider-duzenle.php?durum=no");
 		}
-
 	} else {
 
-		$duzenle=$db->prepare("UPDATE slider SET
+		$duzenle = $db->prepare("UPDATE slider SET
 			slider_ad=:ad,
 			slider_link=:link,
 			slider_sira=:sira,
 			slider_durum=:durum		
 			WHERE slider_id={$_POST['slider_id']}");
 
-		$update=$duzenle->execute(array(
+		$update = $duzenle->execute(array(
 			'ad' => $_POST['slider_ad'],
 			'link' => $_POST['slider_link'],
 			'sira' => $_POST['slider_sira'],
 			'durum' => $_POST['slider_durum']
-			));
+		));
 
-		$slider_id=$_POST['slider_id'];
+		$slider_id = $_POST['slider_id'];
 
 		if ($update) {
 
 			Header("Location:../production/slider-duzenle.php?slider_id=$slider_id&durum=ok");
-
 		} else {
 
 			Header("Location:../production/slider-duzenle.php?durum=no");
@@ -219,33 +363,31 @@ if (isset($_POST['sliderduzenle'])) {
 }
 
 
-if ($_GET['slidersil']=="ok") {
-	
-	$sil=$db->prepare("DELETE FROM slider WHERE slider_id=:slider_id");
-	$kontrol=$sil->execute(array(
+if ($_GET['slidersil'] == "ok") {
+
+	$sil = $db->prepare("DELETE FROM slider WHERE slider_id=:slider_id");
+	$kontrol = $sil->execute(array(
 		'slider_id' => $_GET['slider_id']
-		));
+	));
 
 	if ($kontrol) {
 
-		$resimsilunlink=$_GET['slider_resimyol'];
+		$resimsilunlink = $_GET['slider_resimyol'];
 		unlink("../../$resimsilunlink");
 
 		Header("Location:../production/slider.php?durum=ok");
-
 	} else {
 
 		Header("Location:../production/slider.php?durum=no");
 	}
-
 }
 
 
 if (isset($_POST['menuekle'])) {
 
-	$menu_seourl=seo($_POST['menu_ad']);
+	$menu_seourl = seo($_POST['menu_ad']);
 
-	$menuekle=$db->prepare("INSERT INTO menu SET
+	$menuekle = $db->prepare("INSERT INTO menu SET
 		menu_ad=:menu_ad,
 		menu_detay=:menu_detay,
         menu_url=:menu_url,
@@ -254,34 +396,33 @@ if (isset($_POST['menuekle'])) {
         menu_durum=:menu_durum
 		");
 
-	$insert=$menuekle->execute(array(
+	$insert = $menuekle->execute(array(
 		'menu_ad' => $_POST['menu_ad'],
 		'menu_detay' => $_POST['menu_detay'],
-        'menu_url' => $_POST['menu_url'],
-        'menu_sira' => $_POST['menu_sira'],
-        'menu_seourl' => $menu_seourl,
-        'menu_durum' => $_POST['menu_durum'],
-		));
+		'menu_url' => $_POST['menu_url'],
+		'menu_sira' => $_POST['menu_sira'],
+		'menu_seourl' => $menu_seourl,
+		'menu_durum' => $_POST['menu_durum'],
+	));
 
 	if ($insert) {
 
 		Header("Location:../production/menu.php?durum=ok");
-        exit;
+		exit;
 	} else {
 
 		Header("Location:../production/menu.php?durum=no");
-        exit;
+		exit;
 	}
-
 }
 
 
 if (isset($_POST['menuduzenle'])) {
 
-	$menu_id=$_POST['menu_id'];
-    $menu_seourl=seo($_POST["menu_ad"]);
+	$menu_id = $_POST['menu_id'];
+	$menu_seourl = seo($_POST["menu_ad"]);
 
-	$ayarkaydet=$db->prepare("UPDATE menu SET
+	$ayarkaydet = $db->prepare("UPDATE menu SET
 		menu_ad=:menu_ad,
         menu_detay=:menu_detay,
 		menu_url=:menu_url,
@@ -290,86 +431,67 @@ if (isset($_POST['menuduzenle'])) {
 		menu_durum=:menu_durum
 		WHERE menu_id={$_POST['menu_id']}");
 
-	$update=$ayarkaydet->execute(array(
+	$update = $ayarkaydet->execute(array(
 		'menu_ad' => $_POST['menu_ad'],
-        'menu_detay' => $_POST['menu_detay'],
+		'menu_detay' => $_POST['menu_detay'],
 		'menu_url' => $_POST['menu_url'],
-        'menu_sira' => $_POST['menu_sira'],
-        'menu_seourl' => $menu_seourl,
+		'menu_sira' => $_POST['menu_sira'],
+		'menu_seourl' => $menu_seourl,
 		'menu_durum' => $_POST['menu_durum']
-		));
+	));
 
 
 	if ($update) {
 
 		Header("Location:../production/menu-duzenle.php?menu_id=$menu_id&durum=ok");
-
 	} else {
 
 		Header("Location:../production/menu-duzenle.php?menu_id=$menu_id&durum=no");
 	}
-
 }
 
 
-if ($_GET["kullanicisil"]=='ok') {
-    $sil=$db->prepare("DELETE FROM kullanici WHERE kullanici_id=:id");
-    $kontrol=$sil->execute(array(
-        'id' => $_GET["kullanici_id"]
-    ));
+if ($_GET["menusil"] == 'ok') {
+	$sil = $db->prepare("DELETE FROM menu WHERE menu_id=:id");
+	$kontrol = $sil->execute(array(
+		'id' => $_GET["menu_id"]
+	));
 
-    if ($kontrol) {
-        Header("Location:../production/kullanici.php?sil=ok");
-    } else {
-        Header("Location:../production/kullanici.php?sil=no");
-    }
-
+	if ($kontrol) {
+		Header("Location:../production/menu.php?sil=ok");
+	} else {
+		Header("Location:../production/menuphp?sil=no");
+	}
 }
 
 
-if ($_GET["menusil"]=='ok') {
-    $sil=$db->prepare("DELETE FROM menu WHERE menu_id=:id");
-    $kontrol=$sil->execute(array(
-        'id' => $_GET["menu_id"]
-    ));
-
-    if ($kontrol) {
-        Header("Location:../production/menu.php?sil=ok");
-    } else {
-        Header("Location:../production/menuphp?sil=no");
-    }
-
-}
-
-
-if (isset($_POST["genelayarkaydet"])) {    
-    $ayarkaydet = $db -> prepare("UPDATE ayar SET 
+if (isset($_POST["genelayarkaydet"])) {
+	$ayarkaydet = $db->prepare("UPDATE ayar SET 
     ayar_title=:ayar_title,
     ayar_description=:ayar_description,
     ayar_keywords=:ayar_keywords,
     ayar_author=:ayar_author
     WHERE ayar_id=0");
 
-    $update = $ayarkaydet->execute(array(
-    'ayar_title' => $_POST['ayar_title'],
-    'ayar_description' => $_POST['ayar_description'],
-    'ayar_keywords' => $_POST['ayar_keywords'],
-    'ayar_author' => $_POST['ayar_author']
-    ));
+	$update = $ayarkaydet->execute(array(
+		'ayar_title' => $_POST['ayar_title'],
+		'ayar_description' => $_POST['ayar_description'],
+		'ayar_keywords' => $_POST['ayar_keywords'],
+		'ayar_author' => $_POST['ayar_author']
+	));
 
-    if ($update) {
-        //echo "Güncelleme Başarılı!";
-        Header("Location:../production/genel-ayar.php?durum=ok");
-
-    } else {
-        //echo "Güncelleme Başarısız...";
-        Header("Location:../production/genel-ayar.php?durum=no");
-    }
+	if ($update) {
+		//echo "Güncelleme Başarılı!";
+		Header("Location:../production/genel-ayar.php?durum=ok");
+	} else {
+		//echo "Güncelleme Başarısız...";
+		Header("Location:../production/genel-ayar.php?durum=no");
+	}
 }
 
 
 if (isset($_POST['iletisimayarkaydet'])) {
-	$ayarkaydet=$db->prepare("UPDATE ayar SET
+	$ayarkaydet = $db->prepare("UPDATE ayar SET
 		ayar_tel=:ayar_tel,
 		ayar_gsm=:ayar_gsm,
 		ayar_faks=:ayar_faks,
@@ -380,7 +502,7 @@ if (isset($_POST['iletisimayarkaydet'])) {
 		ayar_mesai=:ayar_mesai
 		WHERE ayar_id=0");
 
-	$update=$ayarkaydet->execute(array(
+	$update = $ayarkaydet->execute(array(
 		'ayar_tel' => $_POST['ayar_tel'],
 		'ayar_gsm' => $_POST['ayar_gsm'],
 		'ayar_faks' => $_POST['ayar_faks'],
@@ -389,7 +511,7 @@ if (isset($_POST['iletisimayarkaydet'])) {
 		'ayar_il' => $_POST['ayar_il'],
 		'ayar_adres' => $_POST['ayar_adres'],
 		'ayar_mesai' => $_POST['ayar_mesai']
-		));
+	));
 
 	if ($update) {
 		header("Location:../production/iletisim-ayarlar.php?durum=ok");
@@ -400,17 +522,17 @@ if (isset($_POST['iletisimayarkaydet'])) {
 
 
 if (isset($_POST['apiayarkaydet'])) {
-	$ayarkaydet=$db->prepare("UPDATE ayar SET
+	$ayarkaydet = $db->prepare("UPDATE ayar SET
 		ayar_maps=:ayar_maps,
 		ayar_analystic=:ayar_analystic,
 		ayar_zopim=:ayar_zopim
 		WHERE ayar_id=0");
 
-	$update=$ayarkaydet->execute(array(
+	$update = $ayarkaydet->execute(array(
 		'ayar_maps' => $_POST['ayar_maps'],
 		'ayar_analystic' => $_POST['ayar_analystic'],
 		'ayar_zopim' => $_POST['ayar_zopim']
-		));
+	));
 
 	if ($update) {
 		header("Location:../production/api-ayarlar.php?durum=ok");
@@ -420,60 +542,58 @@ if (isset($_POST['apiayarkaydet'])) {
 }
 
 
-if (isset($_POST["mailayarkaydet"])) {    
-    $ayarkaydet = $db -> prepare("UPDATE ayar SET 
+if (isset($_POST["mailayarkaydet"])) {
+	$ayarkaydet = $db->prepare("UPDATE ayar SET 
     ayar_smtphost=:ayar_smtphost,
     ayar_smtpuser=:ayar_smtpuser,
     ayar_smtppassword=:ayar_smtppassword,
     ayar_smtpport=:ayar_smtpport
     WHERE ayar_id=0");
 
-    $update = $ayarkaydet->execute(array(
-    'ayar_smtphost' => $_POST['ayar_smtphost'],
-    'ayar_smtpuser' => $_POST['ayar_smtpuser'],
-    'ayar_smtppassword' => $_POST['ayar_smtppassword'],
-    'ayar_smtpport' => $_POST['ayar_smtpport']
-    ));
+	$update = $ayarkaydet->execute(array(
+		'ayar_smtphost' => $_POST['ayar_smtphost'],
+		'ayar_smtpuser' => $_POST['ayar_smtpuser'],
+		'ayar_smtppassword' => $_POST['ayar_smtppassword'],
+		'ayar_smtpport' => $_POST['ayar_smtpport']
+	));
 
-    if ($update) {
-        //echo "Güncelleme Başarılı!";
-        Header("Location:../production/mail-ayarlar.php?durum=ok");
-
-    } else {
-        //echo "Güncelleme Başarısız...";
-        Header("Location:../production/mail-ayarlar.php?durum=no");
-    }
+	if ($update) {
+		//echo "Güncelleme Başarılı!";
+		Header("Location:../production/mail-ayarlar.php?durum=ok");
+	} else {
+		//echo "Güncelleme Başarısız...";
+		Header("Location:../production/mail-ayarlar.php?durum=no");
+	}
 }
 
 
-if (isset($_POST["sosyalayarkaydet"])) {    
-    $ayarkaydet = $db -> prepare("UPDATE ayar SET 
+if (isset($_POST["sosyalayarkaydet"])) {
+	$ayarkaydet = $db->prepare("UPDATE ayar SET 
     ayar_facebook=:ayar_facebook,
     ayar_twitter=:ayar_twitter,
     ayar_google=:ayar_google,
     ayar_youtube=:ayar_youtube
     WHERE ayar_id=0");
 
-    $update = $ayarkaydet->execute(array(
-    'ayar_facebook' => $_POST['ayar_facebook'],
-    'ayar_twitter' => $_POST['ayar_twitter'],
-    'ayar_google' => $_POST['ayar_google'],
-    'ayar_youtube' => $_POST['ayar_youtube']
-    ));
+	$update = $ayarkaydet->execute(array(
+		'ayar_facebook' => $_POST['ayar_facebook'],
+		'ayar_twitter' => $_POST['ayar_twitter'],
+		'ayar_google' => $_POST['ayar_google'],
+		'ayar_youtube' => $_POST['ayar_youtube']
+	));
 
-    if ($update) {
-        //echo "Güncelleme Başarılı!";
-        Header("Location:../production/sosyal-ayarlar.php?durum=ok");
-
-    } else {
-        //echo "Güncelleme Başarısız...";
-        Header("Location:../production/sosyal-ayarlar.php?durum=no");
-    }
+	if ($update) {
+		//echo "Güncelleme Başarılı!";
+		Header("Location:../production/sosyal-ayarlar.php?durum=ok");
+	} else {
+		//echo "Güncelleme Başarısız...";
+		Header("Location:../production/sosyal-ayarlar.php?durum=no");
+	}
 }
 
 
-if (isset($_POST["hakkimizdakaydet"])) {    
-    $ayarkaydet = $db -> prepare("UPDATE hakkimizda SET 
+if (isset($_POST["hakkimizdakaydet"])) {
+	$ayarkaydet = $db->prepare("UPDATE hakkimizda SET 
     hakkimizda_baslik=:hakkimizda_baslik,
     hakkimizda_icerik=:hakkimizda_icerik,
     hakkimizda_video=:hakkimizda_video,
@@ -481,20 +601,19 @@ if (isset($_POST["hakkimizdakaydet"])) {
     hakkimizda_misyon=:hakkimizda_misyon
     WHERE hakkimizda_id=0");
 
-    $update = $ayarkaydet->execute(array(
-    'hakkimizda_baslik' => $_POST['hakkimizda_baslik'],
-    'hakkimizda_icerik' => $_POST['hakkimizda_icerik'],
-    'hakkimizda_video' => $_POST['hakkimizda_video'],
-    'hakkimizda_vizyon' => $_POST['hakkimizda_vizyon'],
-    'hakkimizda_misyon' => $_POST['hakkimizda_misyon']
-    ));
+	$update = $ayarkaydet->execute(array(
+		'hakkimizda_baslik' => $_POST['hakkimizda_baslik'],
+		'hakkimizda_icerik' => $_POST['hakkimizda_icerik'],
+		'hakkimizda_video' => $_POST['hakkimizda_video'],
+		'hakkimizda_vizyon' => $_POST['hakkimizda_vizyon'],
+		'hakkimizda_misyon' => $_POST['hakkimizda_misyon']
+	));
 
-    if ($update) {
-        //echo "Güncelleme Başarılı!";
-        Header("Location:../production/hakkimizda.php?durum=ok");
-
-    } else {
-        //echo "Güncelleme Başarısız...";
-        Header("Location:../production/hakkimizda.php?durum=no");
-    }
+	if ($update) {
+		//echo "Güncelleme Başarılı!";
+		Header("Location:../production/hakkimizda.php?durum=ok");
+	} else {
+		//echo "Güncelleme Başarısız...";
+		Header("Location:../production/hakkimizda.php?durum=no");
+	}
 }

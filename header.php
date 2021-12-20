@@ -1,4 +1,6 @@
 <?php
+ob_start();
+session_start();
 
 include "nedmin/netting/baglan.php";
 include "nedmin/production/fonksiyon.php";
@@ -8,6 +10,13 @@ $ayarsor->execute(array(
     'id' => 0
 ));
 $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
+
+
+$kullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kullanici_mail=:mail");
+$kullanicisor->execute(array(
+    'mail' => $_SESSION['userkullanici_mail']
+));
+$kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
 
 ?>
 <!DOCTYPE html>
@@ -55,36 +64,44 @@ $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
                     <div class="col-md-8">
                         <div class="pushright">
                             <div class="top">
-                                <a href="#" id="reg" class="btn btn-default btn-dark">Login<span>-- Or --</span>Register</a>
-                                <div class="regwrap">
-                                    <div class="row">
-                                        <div class="col-md-6 regform">
-                                            <div class="title-widget-bg">
-                                                <div class="title-widget">Login</div>
+                                <?php
+                                if (isset($_SESSION['userkullanici_mail'])) { ?>
+                                    <a class="btn btn-default btn-dark">Hoşgeldin<span>--  --</span><?php echo $kullanicicek['kullanici_adsoyad']; ?></a>
+                                <?php } else { ?>
+                                    <a href="#" id="reg" class="btn btn-default btn-dark">Giriş Yap<span>-- yada --</span>Kayıt Ol</a>
+                                    <div class="regwrap">
+                                        <div class="row">
+                                            <div class="col-md-6 regform">
+                                                <div class="title-widget-bg">
+                                                    <div class="title-widget">Kullanıcı Girişi</div>
+                                                </div>
+
+                                                <form role="form" action="nedmin/netting/islem.php" method="POST">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" id="username" name="kullanici_mail" required placeholder="Kullanıcı Mail">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input type="password" class="form-control" id="password" name="kullanici_password" required placeholder="Şifre">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <button class="btn btn-default btn-red btn-sm" type="submit" name="kullanicigiris">Giriş Yap</button>
+                                                    </div>
+                                                </form>
+
                                             </div>
-                                            <form role="form">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" id="username" placeholder="Username">
+                                            <div class="col-md-6">
+                                                <div class="title-widget-bg">
+                                                    <div class="title-widget">Kayıt Ol</div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <input type="password" class="form-control" id="password" placeholder="password">
-                                                </div>
-                                                <div class="form-group">
-                                                    <button class="btn btn-default btn-red btn-sm">Sign In</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="title-widget-bg">
-                                                <div class="title-widget">Register</div>
+                                                <p>
+                                                    Yeni kullanıcı mısın? Alışverişe başlamak için hemen kayıt ol! </p>
+                                                <a href="register.php"><button class="btn btn-default btn-yellow">Şimdi Kayıt Ol</button></a>
                                             </div>
-                                            <p>
-                                                New User? By creating an account you be able to shop faster, be up to date on an order's status...
-                                            </p>
-                                            <button class="btn btn-default btn-yellow">Register Now</button>
                                         </div>
                                     </div>
-                                </div>
+                                <?php }
+                                ?>
+
                                 <div class="srch-wrap">
                                     <a href="#" id="srch" class="btn btn-default btn-search"><i class="fa fa-search"></i></a>
                                 </div>
@@ -203,12 +220,18 @@ $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                     </div>
-                    <!-- <ul class="small-menu">
-                        <li><a href="" class="myacc">My Account</a></li>
-                        <li><a href="" class="myshop">Shopping Chart</a></li>
-                        <li><a href="" class="mycheck">Checkout</a></li>
-                    </ul> -->
+
+                    <?php
+                    if (isset($_SESSION['userkullanici_mail'])) { ?>
+                        <ul class="small-menu">
+                            <li><a href="hesabim.php" class="myacc">Hesap Bilgilerim</a></li>
+                            <li><a href="siparislerim.php" class="myshop">Siparişlerim</a></li>
+                            <li><a href="logout.php" class="mycheck">Güvenli Çıkış</a></li>
+                        </ul>
+
+                    <?php } ?>
+
                 </div>
             </div>
         </div>
-<!--end main-nav -->
+        <!--end main-nav -->
