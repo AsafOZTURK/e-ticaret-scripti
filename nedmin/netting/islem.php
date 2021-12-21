@@ -5,6 +5,7 @@ session_start();
 include "baglan.php";
 include "../production/fonksiyon.php";
 
+
 if (isset($_POST["admingiris"])) {
 	$kullanicimail = $_POST["kullanici_mail"];
 	$kullanicipassword = ($_POST["kullanici_password"]);
@@ -49,12 +50,12 @@ if (isset($_POST['kullanicigiris'])) {
 	if ($say == 1) {
 
 		$_SESSION["userkullanici_mail"] = $kullanicimail;
-		Header("Location:../../");
+		Header("Location:../../index.php");
 		exit;
 
 	} else {
 
-		Header("Location:../../=durum=basarisizgiris");
+		Header("Location:../../index.php?durum=basarisizgiris");
 		exit;
 
 	}
@@ -242,6 +243,81 @@ if (isset($_POST['logoduzenle'])) {
 	} else {
 
 		Header("Location:../production/genel-ayar.php?durum=no");
+	}
+}
+
+
+if (isset($_POST['kategoriekle'])) {
+
+	$kategori_seourl = seo($_POST['kategori_ad']);
+
+	$kategoriekle = $db->prepare("INSERT INTO kategori SET
+		kategori_ad=:kategori_ad,
+		kategori_sira=:kategori_sira,
+        kategori_seourl=:kategori_seourl,
+        kategori_durum=:kategori_durum
+		");
+
+	$insert = $kategoriekle->execute(array(
+		'kategori_ad' => $_POST['kategori_ad'],
+		'kategori_sira' => $_POST['kategori_sira'],
+		'kategori_seourl' => $kategori_seourl,
+		'kategori_durum' => $_POST['kategori_durum'],
+	));
+
+	if ($insert) {
+
+		Header("Location:../production/kategori.php?durum=ok");
+		exit;
+	} else {
+
+		Header("Location:../production/kategori.php?durum=no");
+		exit;
+	}
+}
+
+
+if (isset($_POST['kategoriduzenle'])) {
+
+	$kategori_id = $_POST['kategori_id'];
+	$kategori_seourl = seo($_POST["kategori_ad"]);
+
+	$ayarkaydet = $db->prepare("UPDATE kategori SET
+		kategori_ad=:kategori_ad,
+        kategori_sira=:kategori_sira,
+        kategori_seourl=:kategori_seourl,
+		kategori_durum=:kategori_durum
+		WHERE kategori_id={$_POST['kategori_id']}");
+
+	$update = $ayarkaydet->execute(array(
+		'kategori_ad' => $_POST['kategori_ad'],
+		'kategori_sira' => $_POST['kategori_sira'],
+		'kategori_seourl' => $kategori_seourl,
+		'kategori_durum' => $_POST['kategori_durum']
+	));
+
+
+	if ($update) {
+
+		Header("Location:../production/kategori-duzenle.php?kategori_id=$kategori_id&durum=ok");
+	} else {
+
+		Header("Location:../production/kategori-duzenle.php?kategori_id=$kategori_id&durum=no");
+	}
+}
+
+
+if ($_GET['kategorisil'] == 'ok') {
+
+	$sil = $db->prepare("DELETE FROM kategori WHERE kategori_id=:id");
+	$kontrol = $sil->execute(array(
+		'id' => $_GET["kategori_id"]
+	));
+
+	if ($kontrol) {
+		Header("Location:../production/kategori.php?sil=ok");
+	} else {
+		Header("Location:../production/kategoriphp?sil=no");
 	}
 }
 
@@ -461,6 +537,97 @@ if ($_GET["menusil"] == 'ok') {
 		Header("Location:../production/menu.php?sil=ok");
 	} else {
 		Header("Location:../production/menuphp?sil=no");
+	}
+}
+
+
+if (isset($_POST['urunekle'])) {
+
+	$urun_seourl=seo($_POST['urun_ad']);
+
+	$kaydet=$db->prepare("INSERT INTO urun SET
+		kategori_id=:kategori_id,
+		urun_ad=:urun_ad,
+		urun_detay=:urun_detay,
+		urun_fiyat=:urun_fiyat,
+		urun_video=:urun_video,
+		urun_keyword=:urun_keyword,
+		urun_durum=:urun_durum,
+		urun_stok=:urun_stok,	
+		urun_seourl=:seourl		
+		");
+	$insert=$kaydet->execute(array(
+		'kategori_id' => $_POST['kategori_id'],
+		'urun_ad' => $_POST['urun_ad'],
+		'urun_detay' => $_POST['urun_detay'],
+		'urun_fiyat' => $_POST['urun_fiyat'],
+		'urun_video' => $_POST['urun_video'],
+		'urun_keyword' => $_POST['urun_keyword'],
+		'urun_durum' => $_POST['urun_durum'],
+		'urun_stok' => $_POST['urun_stok'],
+		'seourl' => $urun_seourl
+
+		));
+
+	if ($insert) {
+
+		Header("Location:../production/urun.php?durum=ok");
+
+	} else {
+
+		Header("Location:../production/urun.php?durum=no");
+	}
+
+}
+
+if (isset($_POST['urunduzenle'])) {
+
+	$urun_id=$_POST['urun_id'];
+	$urun_seourl=seo($_POST['urun_ad']);
+
+	$kaydet=$db->prepare("UPDATE urun SET
+		kategori_id=:kategori_id,
+		urun_ad=:urun_ad,
+		urun_detay=:urun_detay,
+		urun_fiyat=:urun_fiyat,
+		urun_video=:urun_video,
+		urun_keyword=:urun_keyword,
+		urun_durum=:urun_durum,
+		urun_stok=:urun_stok,	
+		urun_seourl=:seourl		
+		WHERE urun_id={$_POST['urun_id']}");
+
+	$update=$kaydet->execute(array(
+		'kategori_id' => $_POST['kategori_id'],
+		'urun_ad' => $_POST['urun_ad'],
+		'urun_detay' => $_POST['urun_detay'],
+		'urun_fiyat' => $_POST['urun_fiyat'],
+		'urun_video' => $_POST['urun_video'],
+		'urun_keyword' => $_POST['urun_keyword'],
+		'urun_durum' => $_POST['urun_durum'],
+		'urun_stok' => $_POST['urun_stok'],
+		'seourl' => $urun_seourl
+		));
+
+	if ($update) {
+		Header("Location:../production/urun-duzenle.php?durum=ok&urun_id=$urun_id");
+	} else {
+		Header("Location:../production/urun-duzenle.php?durum=no&urun_id=$urun_id");
+	}
+}
+
+
+if ($_GET['urunsil'] == 'ok') {
+
+	$sil = $db->prepare("DELETE FROM urun WHERE urun_id=:id");
+	$kontrol = $sil->execute(array(
+		'id' => $_GET["urun_id"]
+	));
+
+	if ($kontrol) {
+		Header("Location:../production/urun.php?sil=ok");
+	} else {
+		Header("Location:../production/urunphp?sil=no");
 	}
 }
 

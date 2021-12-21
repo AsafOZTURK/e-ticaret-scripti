@@ -20,7 +20,6 @@ $menucek = $menusor->fetch(PDO::FETCH_ASSOC);
                 <?php echo $menucek["menu_detay"]; ?>
             </div>
         </div>
-        <div class="col-md-3">
             <!-- BURAYA SİDEBAR GELECEK -->
             <?php include "sidebar.php"; ?>
         </div>

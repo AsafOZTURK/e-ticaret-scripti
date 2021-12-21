@@ -36,7 +36,6 @@ $hakkimizdacek = $hakkimizdasor->fetch(PDO::FETCH_ASSOC);
                 <?php echo $hakkimizdacek["hakkimizda_misyon"]; ?>
             </div>
         </div>
-        <div class="col-md-3">
             <!-- BURAYA SİDEBAR GELECEK -->
             <?php include "sidebar.php"; ?>
         </div>

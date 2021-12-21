@@ -104,9 +104,11 @@ if (!isset($_SESSION["kullanici_mail"])) {
                                         <li><a href="sosyal-ayarlar.php">Sosyal Medya Ayarları</a></li>
                                         <li><a href="mail-ayarlar.php">Mail Ayarları</a></li>
                                     </ul>
-                                    <li><a href="menu.php"><i class="fa fa-bars"></i>Menüler</a></li>
                                     <li><a href="slider.php"><i class="fa fa-image"></i>Slider</a></li>
-                                <li><a href="hakkimizda.php"><i class="fa fa-info"></i>Hakkımızda</a></li>
+                                    <li><a href="menu.php"><i class="fa fa-bars"></i>Menüler</a></li>
+                                    <li><a href="urun.php"><i class="fa fa-cubes"></i>Ürünler</a></li>
+                                    <li><a href="kategori.php"><i class="fa fa-image"></i>Kategoriler</a></li>
+                                    <li><a href="hakkimizda.php"><i class="fa fa-info"></i>Hakkımızda</a></li>
                                 <li><a href="kullanici.php"><i class="fa fa-user"></i>Kullanıcı İşlemleri</a></li>
                                 </li>
                             </ul>
