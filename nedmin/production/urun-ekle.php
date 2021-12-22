@@ -144,6 +144,17 @@ include 'header.php';
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Ürün Durum<span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select id="heard" class="form-control" name="urun_onecikar" required>
+                                        <option value="0">Pasif</option>
+                                        <option value="1">Aktif</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div align="right" class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">

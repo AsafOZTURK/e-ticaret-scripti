@@ -5,7 +5,7 @@
             <div class="col-md-4">
                 <!--footer twitter widget-->
                 <div class="title-widget-bg">
-                    <div class="title-widget">Twitter Updates</div>
+                    <div class="title-widget">Twitter Güncellemeleri</div>
                 </div>
                 <ul class="tweets">
                     <li>Check out this great #themeforest item for you
@@ -19,24 +19,24 @@
                 </ul>
                 <div class="clearfix"></div>
                 <a href="#" class="btn btn-default btn-follow"><i class="fa fa-twitter fa-2x"></i>
-                    <div>Follow us on twitter</div>
+                    <div>Bizi Twitter'da    Takip Edin</div>
                 </a>
             </div>
             <!--footer twitter widget-->
             <div class="col-md-4">
                 <!--footer newsletter widget-->
                 <div class="title-widget-bg">
-                    <div class="title-widget">Newsletter Signup</div>
+                    <div class="title-widget">Bültene Üye Ol</div>
                 </div>
                 <div class="newsletter">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        En güncel indirimlere ve haberlere ulaşmak için bültene üye olun!
                     </p>
                     <form role="form">
                         <div class="form-group">
-                            <label>Your Email address</label>
-                            <input type="email" class="form-control newstler-input" id="exampleInputEmail1" placeholder="Enter email">
-                            <button class="btn btn-default btn-red btn-sm">Sign Up</button>
+                            <label>E-mail Adresiniz</label>
+                            <input type="email" class="form-control newstler-input" id="exampleInputEmail1" placeholder="Email adresi">
+                            <button class="btn btn-default btn-red btn-sm">Giriş Yap</button>
                         </div>
                     </form>
                 </div>
@@ -66,11 +66,11 @@
             <div class="col-md-9">
                 <ul class="footermenu">
                     <!--footer nav-->
-                    <li><a href="index-1.htm">Home</a></li>
-                    <li><a href="cart.htm">My Cart</a></li>
+                    <li><a href="index.php">Anasayfa</a></li>
+                    <li><a href="cart.htm">Sepetim</a></li>
                     <li><a href="checkout.htm">Checkout</a></li>
-                    <li><a href="order.htm">Completed Orders</a></li>
-                    <li><a href="contact.htm">Contact us</a></li>
+                    <li><a href="siparislerim.php">Siparişlerim</a></li>
+                    <li><a href="sayfa-iletisim.php">İletişim</a></li>
                 </ul>
                 <!--footer nav-->
                 <div class="f-credit">&copy;<?php echo $ayarcek['ayar_author']; ?></div>
@@ -89,7 +89,7 @@
             </div>
             <div class="col-md-3">
                 <!--footer Share-->
-                <div class="followon">Follow us on</div>
+                <div class="followon">Bizi Takip Edin</div>
                 <div class="fsoc">
                     <a href="<?php echo $ayarcek['ayar_twitter']; ?>" class="ftwitter">twitter</a>
                     <a href="<?php echo $ayarcek['ayar_facebook']; ?>" class="ffacebook">facebook</a>

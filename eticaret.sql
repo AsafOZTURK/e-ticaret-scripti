@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.6.6
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost
--- Üretim Zamanı: 21 Ara 2021, 13:47:48
--- Sunucu sürümü: 8.0.17
--- PHP Sürümü: 7.3.10
+-- Üretim Zamanı: 22 Ara 2021, 20:04:19
+-- Sunucu sürümü: 5.7.17-log
+-- PHP Sürümü: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -30,32 +28,32 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `ayar` (
   `ayar_id` int(11) NOT NULL,
-  `ayar_logo` varchar(250) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_url` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_title` varchar(250) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_description` varchar(250) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_keywords` varchar(250) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_author` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_tel` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_gsm` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_faks` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_mail` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_ilce` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_il` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_adres` varchar(250) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_mesai` varchar(250) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_maps` varchar(250) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_analystic` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_zopim` varchar(250) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_facebook` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_twitter` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_google` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_youtube` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_smtphost` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_smtpuser` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_smtppassword` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_smtpport` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `ayar_bakim` enum('0','1') CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL DEFAULT '1'
+  `ayar_logo` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_url` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_title` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_description` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_keywords` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_author` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_tel` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_gsm` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_faks` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_mail` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_ilce` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_il` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_adres` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_mesai` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_maps` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_analystic` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_zopim` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_facebook` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_twitter` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_google` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_youtube` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_smtphost` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_smtpuser` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_smtppassword` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_smtpport` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `ayar_bakim` enum('0','1') COLLATE utf8_turkish_ci NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
 --
@@ -73,11 +71,11 @@ INSERT INTO `ayar` (`ayar_id`, `ayar_logo`, `ayar_url`, `ayar_title`, `ayar_desc
 
 CREATE TABLE `hakkimizda` (
   `hakkimizda_id` int(1) NOT NULL,
-  `hakkimizda_baslik` varchar(250) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `hakkimizda_icerik` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `hakkimizda_video` varchar(100) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `hakkimizda_vizyon` varchar(500) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `hakkimizda_misyon` varchar(500) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL
+  `hakkimizda_baslik` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `hakkimizda_icerik` text COLLATE utf8_turkish_ci NOT NULL,
+  `hakkimizda_video` varchar(100) COLLATE utf8_turkish_ci NOT NULL,
+  `hakkimizda_vizyon` varchar(500) COLLATE utf8_turkish_ci NOT NULL,
+  `hakkimizda_misyon` varchar(500) COLLATE utf8_turkish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
 --
@@ -124,19 +122,19 @@ INSERT INTO `kategori` (`kategori_id`, `kategori_ad`, `kategori_ust`, `kategori_
 CREATE TABLE `kullanici` (
   `kullanici_id` int(11) NOT NULL,
   `kullanici_zaman` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `kullanici_resim` varchar(250) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `kullanici_tc` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `kullanici_ad` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `kullanici_soyad` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `kullanici_mail` varchar(100) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `kullanici_gsm` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `kullanici_password` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `kullanici_adsoyad` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `kullanici_adres` varchar(250) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `kullanici_il` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `kullanici_ilce` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `kullanici_unvan` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `kullanici_yetki` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
+  `kullanici_resim` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `kullanici_tc` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `kullanici_ad` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `kullanici_soyad` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `kullanici_mail` varchar(100) COLLATE utf8_turkish_ci NOT NULL,
+  `kullanici_gsm` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `kullanici_password` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `kullanici_adsoyad` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `kullanici_adres` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
+  `kullanici_il` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `kullanici_ilce` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `kullanici_unvan` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `kullanici_yetki` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
   `kullanici_durum` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
@@ -146,10 +144,7 @@ CREATE TABLE `kullanici` (
 
 INSERT INTO `kullanici` (`kullanici_id`, `kullanici_zaman`, `kullanici_resim`, `kullanici_tc`, `kullanici_ad`, `kullanici_soyad`, `kullanici_mail`, `kullanici_gsm`, `kullanici_password`, `kullanici_adsoyad`, `kullanici_adres`, `kullanici_il`, `kullanici_ilce`, `kullanici_unvan`, `kullanici_yetki`, `kullanici_durum`) VALUES
 (1, '2021-12-15 23:07:07', 'https://www.technopat.net/sosyal/eklenti/dc-jpg.664852/', '11111111118', 'Mehmet Asaf ', 'ÖZTÜRK', 'giris', '0850850850', '202cb962ac59075b964b07152d234b70', 'Asaf ÖZTÜRK', 'Örnek Adres metni', 'Eskişehir', 'Tepebaşı', 'Yazılım Uzmanı', '5', 1),
-(6, '2021-12-20 15:27:37', '', '', '', '', 'mehmetasafozturk@gmail.com', '', 'e10adc3949ba59abbe56e057f20f883e', 'Mehmet Asaf ÖZTÜRK', '', '', '', '', '1', 1),
-(7, '2021-12-20 15:41:56', 'https://i.pinimg.com/originals/b5/48/17/b548171a8388d4a7ef6dbbeebc342d1c.jpg', '11111111118A', 'MehmetA', 'DenemeA', 'deneme@deneme.com', '0850850850A', '252a5b23a024e5b2e77c04b0d0bec471', 'MehmetA', 'Anadolu üniversitesiA', 'EskişehirA', 'TepebaşıA', 'YokA', '1', 0),
-(8, '2021-12-21 10:58:05', 'http://localhost/e-ticaret/dimg/23279logo.png', '333333333333', 'Ahmen', 'Cabbar', 'a@a.com', '093565810', 'e86fdc2283aff4717103f2d44d0610f7', 'Admin', 'Adres satırı', 'Kahramanmaraş', 'Onikişubat', 'YOk', '1', 0),
-(9, '2021-12-21 16:32:50', '', '', '', '', 'aa@a.com', '', 'e86fdc2283aff4717103f2d44d0610f7', 'Mehmet', '', '', '', '', '1', 1);
+(10, '2021-12-22 20:36:41', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFei8aiOkiDND7cWvCN-La_4atnrRChhjD2fSLl-J7hemTf4AsoTjO8OrbbeKsEITn8yA&usqp=CAU', '99999999999999', 'Mehmet Asaf', ' ÖZTÜRK', 'giris@giris.com', '0953 646 46 46', 'e10adc3949ba59abbe56e057f20f883e', 'Asaf ÖZTÜRK', 'Anadolu Üniversitesi', 'Eskişehir', 'Tepebaşı', 'Yok', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -159,13 +154,13 @@ INSERT INTO `kullanici` (`kullanici_id`, `kullanici_zaman`, `kullanici_resim`, `
 
 CREATE TABLE `menu` (
   `menu_id` int(11) NOT NULL,
-  `menu_ust` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `menu_ad` varchar(100) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `menu_detay` text CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `menu_url` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
+  `menu_ust` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `menu_ad` varchar(100) COLLATE utf8_turkish_ci NOT NULL,
+  `menu_detay` text COLLATE utf8_turkish_ci NOT NULL,
+  `menu_url` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
   `menu_sira` int(2) NOT NULL,
-  `menu_durum` enum('0','1') CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `menu_seourl` varchar(250) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL
+  `menu_durum` enum('0','1') COLLATE utf8_turkish_ci NOT NULL,
+  `menu_seourl` varchar(250) COLLATE utf8_turkish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
 --
@@ -187,11 +182,11 @@ INSERT INTO `menu` (`menu_id`, `menu_ust`, `menu_ad`, `menu_detay`, `menu_url`, 
 
 CREATE TABLE `slider` (
   `slider_id` int(11) NOT NULL,
-  `slider_ad` varchar(50) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
-  `slider_resimyol` varchar(250) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL,
+  `slider_ad` varchar(50) COLLATE utf8_turkish_ci NOT NULL,
+  `slider_resimyol` varchar(250) COLLATE utf8_turkish_ci NOT NULL,
   `slider_sira` int(2) NOT NULL,
-  `slider_durum` enum('0','1') CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL DEFAULT '1',
-  `slider_link` varchar(250) CHARACTER SET utf8 COLLATE utf8_turkish_ci NOT NULL
+  `slider_durum` enum('0','1') COLLATE utf8_turkish_ci NOT NULL DEFAULT '1',
+  `slider_link` varchar(250) COLLATE utf8_turkish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
 
 --
@@ -214,34 +209,35 @@ CREATE TABLE `urun` (
   `urun_id` int(11) NOT NULL,
   `kategori_id` int(11) NOT NULL,
   `urun_ad` varchar(100) COLLATE utf8_bin NOT NULL,
-  `urun_zaman` timestamp NOT NULL,
+  `urun_zaman` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `urun_seourl` varchar(250) COLLATE utf8_bin NOT NULL,
   `urun_detay` text COLLATE utf8_bin NOT NULL,
   `urun_fiyat` float(9,2) NOT NULL,
   `urun_video` varchar(250) COLLATE utf8_bin NOT NULL,
   `urun_keyword` varchar(250) COLLATE utf8_bin NOT NULL,
   `urun_stok` int(11) NOT NULL,
-  `urun_durum` enum('0','1') COLLATE utf8_bin NOT NULL DEFAULT '1'
+  `urun_durum` enum('0','1') COLLATE utf8_bin NOT NULL DEFAULT '1',
+  `urun_onecikar` enum('0','1') COLLATE utf8_bin NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Tablo döküm verisi `urun`
 --
 
-INSERT INTO `urun` (`urun_id`, `kategori_id`, `urun_ad`, `urun_zaman`, `urun_seourl`, `urun_detay`, `urun_fiyat`, `urun_video`, `urun_keyword`, `urun_stok`, `urun_durum`) VALUES
-(1, 2, 'Ekose Gömlek', '0000-00-00 00:00:00', '', 'Çok iyi gömlek', 200.00, '', 'gömlek,ekose', 200, '1'),
-(11, 1, 'Ayakkabi 1', '0000-00-00 00:00:00', 'ayakkabi-1', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 150.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'ayakkabı,bir', 100, '1'),
-(12, 1, 'Ayakkabi 2', '0000-00-00 00:00:00', 'ayakkabi-2', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 650.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'bilmem,ayakkabi', 250, '1'),
-(13, 1, 'Ayakkabi 3', '0000-00-00 00:00:00', 'ayakkabi-3', '', 65.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'ayakkabı,uc', 9000, '1'),
-(14, 7, 'Şapka 1', '0000-00-00 00:00:00', 'sapka-1', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 12.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 36, '1'),
-(15, 1, 'Şapka 2', '0000-00-00 00:00:00', 'sapka-2', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 500.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 8, '1'),
-(16, 7, 'Şapka 3', '0000-00-00 00:00:00', 'sapka-3', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 6.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 985, '1'),
-(17, 8, 'Takı 1', '0000-00-00 00:00:00', 'taki-1', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak ş</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.ablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 11.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 23, '1'),
-(18, 1, 'Takı 2', '0000-00-00 00:00:00', 'taki-2', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 566.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 100, '1'),
-(19, 8, 'Takı 3', '0000-00-00 00:00:00', 'taki-3', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 1222.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 2, '1'),
-(20, 4, 'Kazak 1', '0000-00-00 00:00:00', 'kazak-1', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 233.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 500, '1'),
-(21, 1, 'Kazak 2', '0000-00-00 00:00:00', 'kazak-2', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 56.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 45, '1'),
-(22, 2, 'mONT1', '0000-00-00 00:00:00', 'mont1', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 122.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 1950, '1');
+INSERT INTO `urun` (`urun_id`, `kategori_id`, `urun_ad`, `urun_zaman`, `urun_seourl`, `urun_detay`, `urun_fiyat`, `urun_video`, `urun_keyword`, `urun_stok`, `urun_durum`, `urun_onecikar`) VALUES
+(1, 3, 'Ekose Gömlek', '2021-12-22 19:59:57', 'ekose-gomlek', '<p>&Ccedil;ok iyi g&ouml;mlek</p>\r\n', 200.00, 'yok', 'gömlek,ekose', 200, '1', '1'),
+(11, 1, 'Ayakkabi 1', '2021-12-22 19:59:55', 'ayakkabi-1', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 150.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'ayakkabı,bir', 100, '1', '0'),
+(12, 1, 'Ayakkabi 2', '2021-12-22 19:59:56', 'ayakkabi-2', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 650.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'bilmem,ayakkabi', 250, '1', '0'),
+(13, 1, 'Ayakkabi 3', '2021-12-22 20:00:21', 'ayakkabi-3', '', 65.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'ayakkabı,uc', 9000, '1', '0'),
+(14, 7, 'Şapka 1', '0000-00-00 00:00:00', 'sapka-1', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 12.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 36, '1', '0'),
+(15, 7, 'Şapka 2', '2021-12-21 19:12:33', 'sapka-2', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 500.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 8, '1', '0'),
+(16, 7, 'Şapka 3', '0000-00-00 00:00:00', 'sapka-3', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 6.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 985, '1', '0'),
+(17, 8, 'Takı 1', '0000-00-00 00:00:00', 'taki-1', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak ş</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.ablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 11.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 23, '1', '0'),
+(18, 8, 'Takı 2', '2021-12-21 19:11:41', 'taki-2', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n\r\n<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 566.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 100, '1', '0'),
+(19, 8, 'Takı 3', '2021-12-22 20:00:09', 'taki-3', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 1222.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 2, '1', '1'),
+(20, 4, 'Kazak 1', '2021-12-22 20:00:00', 'kazak-1', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 233.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 500, '1', '1'),
+(21, 4, 'Kazak 2', '2021-12-22 20:00:01', 'kazak-2', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 56.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 45, '1', '1'),
+(22, 2, 'mONT1', '2021-12-22 18:35:39', 'mont1', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 122.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 1950, '1', '');
 
 --
 -- Dökümü yapılmış tablolar için indeksler
@@ -298,32 +294,26 @@ ALTER TABLE `urun`
 --
 ALTER TABLE `kategori`
   MODIFY `kategori_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- Tablo için AUTO_INCREMENT değeri `kullanici`
 --
 ALTER TABLE `kullanici`
-  MODIFY `kullanici_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
+  MODIFY `kullanici_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- Tablo için AUTO_INCREMENT değeri `menu`
 --
 ALTER TABLE `menu`
   MODIFY `menu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
 --
 -- Tablo için AUTO_INCREMENT değeri `slider`
 --
 ALTER TABLE `slider`
   MODIFY `slider_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
 --
 -- Tablo için AUTO_INCREMENT değeri `urun`
 --
 ALTER TABLE `urun`
   MODIFY `urun_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

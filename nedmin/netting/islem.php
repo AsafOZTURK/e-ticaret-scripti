@@ -130,11 +130,13 @@ if (isset($_POST["kullanicikaydet"])) {
 if (isset($_POST['kullaniciduzenle'])) {
 
 	$kullanici_id = $_POST['kullanici_id'];
+	$kullanicipassword = md5($_POST['kullanici_password']);
 
 	$ayarkaydet = $db->prepare("UPDATE kullanici SET
 		kullanici_tc=:kullanici_tc,
 		kullanici_adsoyad=:kullanici_adsoyad,
         kullanici_gsm=:kullanici_gsm,
+		kullanici_password=:kullanici_password,
 		kullanici_durum=:kullanici_durum
 		WHERE kullanici_id={$_POST['kullanici_id']}");
 
@@ -142,7 +144,8 @@ if (isset($_POST['kullaniciduzenle'])) {
 		'kullanici_tc' => $_POST['kullanici_tc'],
 		'kullanici_adsoyad' => $_POST['kullanici_adsoyad'],
 		'kullanici_gsm' => $_POST['kullanici_gsm'],
-		'kullanici_durum' => $_POST['kullanici_durum']
+		'kullanici_durum' => $_POST['kullanici_durum'],
+		'kullanici_password' => $kullanicipassword
 	));
 
 
@@ -553,6 +556,7 @@ if (isset($_POST['urunekle'])) {
 		urun_video=:urun_video,
 		urun_keyword=:urun_keyword,
 		urun_durum=:urun_durum,
+		urun_onecikar=:urun_onecikar,
 		urun_stok=:urun_stok,	
 		urun_seourl=:seourl		
 		");
@@ -564,6 +568,7 @@ if (isset($_POST['urunekle'])) {
 		'urun_video' => $_POST['urun_video'],
 		'urun_keyword' => $_POST['urun_keyword'],
 		'urun_durum' => $_POST['urun_durum'],
+		'urun_onecikar' => $_POST['urun_onecikar'],
 		'urun_stok' => $_POST['urun_stok'],
 		'seourl' => $urun_seourl
 
@@ -593,6 +598,7 @@ if (isset($_POST['urunduzenle'])) {
 		urun_video=:urun_video,
 		urun_keyword=:urun_keyword,
 		urun_durum=:urun_durum,
+		urun_onecikar=:urun_onecikar,
 		urun_stok=:urun_stok,	
 		urun_seourl=:seourl		
 		WHERE urun_id={$_POST['urun_id']}");
@@ -605,6 +611,7 @@ if (isset($_POST['urunduzenle'])) {
 		'urun_video' => $_POST['urun_video'],
 		'urun_keyword' => $_POST['urun_keyword'],
 		'urun_durum' => $_POST['urun_durum'],
+		'urun_onecikar' => $_POST['urun_onecikar'],
 		'urun_stok' => $_POST['urun_stok'],
 		'seourl' => $urun_seourl
 		));
@@ -627,7 +634,23 @@ if ($_GET['urunsil'] == 'ok') {
 	if ($kontrol) {
 		Header("Location:../production/urun.php?sil=ok");
 	} else {
-		Header("Location:../production/urunphp?sil=no");
+		Header("Location:../production/urun.php?sil=no");
+	}
+}
+
+
+if ($_GET['urun_onecikar']=="ok") {
+	
+	$duzenle=$db->prepare("UPDATE urun SET urun_onecikar=:urun_onecikar WHERE urun_id={$_GET['urun_id']}");
+	
+	$update=$duzenle->execute(array(
+		'urun_onecikar' => $_GET['urun_one']
+		));
+
+	if ($update) {
+		Header("Location:../production/urun.php?durum=ok");
+	} else {
+		Header("Location:../production/urun.php?durum=no");
 	}
 }
 

@@ -47,6 +47,7 @@ $urunsor->execute();
                                                 <th>Ürün Fiyat</th>
                                                 <th>Ürün Stok</th>
                                                 <th>Ürün Durum</th>
+                                                <th>Öne Çıkarma</th>
                                                 <th></th>
                                                 <th></th>
                                             </tr>
@@ -60,12 +61,26 @@ $urunsor->execute();
                                                     <td><?php echo $uruncek["urun_fiyat"]; ?></td>
                                                     <td><?php echo $uruncek["urun_stok"]; ?></td>
                                                     <td align="center">
+
                                                         <?php
                                                         if ($uruncek["urun_durum"] == 1) { ?>
                                                             <button class="btn btn-success btn-xs">Aktif</button>
                                                         <?php } else { ?>
-                                                            <button class="btn btn-danger">Pasif</button>
+                                                            <button class="btn btn-danger btn-xs">Pasif</button>
                                                         <?php } ?>
+
+                                                    </td>
+                                                    <td>
+                                                        <center>
+                                                            <?php
+                                                            if ($uruncek['urun_onecikar'] == 0) { ?>
+                                                                <a href="../netting/islem.php?urun_id=<?php echo $uruncek['urun_id'] ?>&urun_one=1&urun_onecikar=ok"><button class="btn btn-success btn-xs">Ön Çıkar</button></a>
+                                                            <?php } elseif ($uruncek['urun_onecikar'] == 1) { ?>
+                                                                <a href="../netting/islem.php?urun_id=<?php echo $uruncek['urun_id'] ?>&urun_one=0&urun_onecikar=ok"><button class="btn btn-warning btn-xs">Kaldır</button></a>
+                                                            <?php }
+                                                            ?>
+                                                        </center>
+
                                                     </td>
                                                     <td align="center"><a href="urun-duzenle.php?urun_id=<?php echo $uruncek["urun_id"]; ?>"><button class="btn-primary btn-xs">Düzenle</button></a></td>
                                                     <td align="center"><a href="../netting/islem.php?urun_id=<?php echo $uruncek["urun_id"]; ?>&urunsil=ok"><button class="btn-danger btn-xs">Sil</button></a></td>

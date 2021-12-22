@@ -21,7 +21,7 @@ include "header.php";
         <div class="row">
             <div class="col-md-6">
                 <div class="title-bg">
-                    <div class="title">Kişisel Bilgiler</div>
+                    <div class="title">Kayıt Ol</div>
                 </div>
 
                 <?php
@@ -69,32 +69,6 @@ include "header.php";
                 <div class="col-md-6">
                     <div class="title-bg">
                         <div class="title">Şifremi Unuttum</div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="company" placeholder="Company">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="address" placeholder="Address">
-                        </div>
-                    </div>
-                    <div class="form-group dob">
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="city" placeholder="city">
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="postcode" placeholder="Post Code">
-                        </div>
-                    </div>
-                    <div class="form-group dob">
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="country" placeholder="country">
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" id="state" placeholder="State">
-                        </div>
                     </div>
                 </div>
             </form>

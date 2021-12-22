@@ -44,7 +44,7 @@ if (isset($_GET['sef'])) {
                         <div class="productwrap">
                             <div class="pr-img">
                                 <div class="hot"></div>
-                                <a href="product.htm"><img src="images\sample-3.jpg" alt="" class="img-responsive"></a>
+                                <a href="urun-<?=seo($uruncek["urun_ad"]).'-'.$uruncek["urun_id"]?>"><img src="images\sample-3.jpg" alt="" class="img-responsive"></a>
                                 <div class="pricetag on-sale">
                                     <div class="inner on-sale"><span class="onsale"><span class="oldprice"></span><?php echo $uruncek['urun_fiyat']; ?>TL</span></div>
                                 </div>
@@ -69,9 +69,9 @@ if (isset($_GET['sef'])) {
             </ul>
             pagination-->
         </div>
-        
+        <?php include "sidebar.php"; ?>
     </div>
-    <div class="spacer"><?php include "sidebar.php"; ?></div>
+    <div class="spacer"></div>
 </div>
 
 <?php include 'footer.php'; ?>
