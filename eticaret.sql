@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: localhost
--- Üretim Zamanı: 22 Ara 2021, 20:04:19
+-- Üretim Zamanı: 24 Ara 2021, 18:54:44
 -- Sunucu sürümü: 5.7.17-log
 -- PHP Sürümü: 5.6.30
 
@@ -144,7 +144,8 @@ CREATE TABLE `kullanici` (
 
 INSERT INTO `kullanici` (`kullanici_id`, `kullanici_zaman`, `kullanici_resim`, `kullanici_tc`, `kullanici_ad`, `kullanici_soyad`, `kullanici_mail`, `kullanici_gsm`, `kullanici_password`, `kullanici_adsoyad`, `kullanici_adres`, `kullanici_il`, `kullanici_ilce`, `kullanici_unvan`, `kullanici_yetki`, `kullanici_durum`) VALUES
 (1, '2021-12-15 23:07:07', 'https://www.technopat.net/sosyal/eklenti/dc-jpg.664852/', '11111111118', 'Mehmet Asaf ', 'ÖZTÜRK', 'giris', '0850850850', '202cb962ac59075b964b07152d234b70', 'Asaf ÖZTÜRK', 'Örnek Adres metni', 'Eskişehir', 'Tepebaşı', 'Yazılım Uzmanı', '5', 1),
-(10, '2021-12-22 20:36:41', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFei8aiOkiDND7cWvCN-La_4atnrRChhjD2fSLl-J7hemTf4AsoTjO8OrbbeKsEITn8yA&usqp=CAU', '99999999999999', 'Mehmet Asaf', ' ÖZTÜRK', 'giris@giris.com', '0953 646 46 46', 'e10adc3949ba59abbe56e057f20f883e', 'Asaf ÖZTÜRK', 'Anadolu Üniversitesi', 'Eskişehir', 'Tepebaşı', 'Yok', '1', 1);
+(10, '2021-12-22 20:36:41', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFei8aiOkiDND7cWvCN-La_4atnrRChhjD2fSLl-J7hemTf4AsoTjO8OrbbeKsEITn8yA&usqp=CAU', '99999999999999', 'Mehmet Asaf', ' ÖZTÜRK', 'giris@giris.com', '0953 646 46 46', 'e10adc3949ba59abbe56e057f20f883e', 'Asaf ÖZTÜRK', 'Anadolu Üniversitesi', 'Eskişehir', 'Tepebaşı', 'Yok', '1', 1),
+(11, '2021-12-24 19:05:04', '', '', '', '', 'irem@irem.com', '', 'e86fdc2283aff4717103f2d44d0610f7', 'İrem öZENİR', '', '', '', '', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -239,6 +240,30 @@ INSERT INTO `urun` (`urun_id`, `kategori_id`, `urun_ad`, `urun_zaman`, `urun_seo
 (21, 4, 'Kazak 2', '2021-12-22 20:00:01', 'kazak-2', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 56.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 45, '1', '1'),
 (22, 2, 'mONT1', '2021-12-22 18:35:39', 'mont1', '<p>Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.Lorem Ipsum, masa&uuml;st&uuml; yayıncılık ve basın yayın sekt&ouml;r&uuml;nde kullanılan taklit yazı bloğu olarak tanımlanır. Lipsum, oluşturulacak şablon ve taslaklarda i&ccedil;erik yerine ge&ccedil;erek yazı bloğunu doldurmak i&ccedil;in kullanılır.</p>\r\n', 122.00, 'https://www.youtube.com/watch?v=gs-MtItyOFc&list=RDgs-MtItyOFc&start_radio=1&ab_channel=tameimpalaVEVO', 'a,b,c', 1950, '1', '');
 
+-- --------------------------------------------------------
+
+--
+-- Tablo için tablo yapısı `yorum`
+--
+
+CREATE TABLE `yorum` (
+  `yorum_id` int(11) NOT NULL,
+  `kullanici_id` int(11) NOT NULL,
+  `urun_id` int(11) NOT NULL,
+  `yorum_detay` text COLLATE utf8_turkish_ci NOT NULL,
+  `yorum_zaman` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_turkish_ci;
+
+--
+-- Tablo döküm verisi `yorum`
+--
+
+INSERT INTO `yorum` (`yorum_id`, `kullanici_id`, `urun_id`, `yorum_detay`, `yorum_zaman`) VALUES
+(8, 10, 11, 'terterterert', '2021-12-24 16:05:20'),
+(9, 11, 11, 'aaaaaaaaaaa', '2021-12-24 16:06:45'),
+(12, 10, 20, 'aaaa', '2021-12-24 18:33:09'),
+(13, 10, 18, '\r\ndenemeekofjsodıpgjpadıohgpıadhgpıaddhpboıadfhbpoıadfjpbıochjğboc\r\ndenemeekofjsodıpgjpadıohgpıadhgpıaddhpboıadfhbpoıadfjpbıochjğbocdenemeekofjsodıpgjpadıohgpıadhgpıaddhpboıadfhbpoıadfjpbıochjğbocdenemeekofjsodıpgjpadıohgpıadhgpıaddhpboıadfhbpoıadfjpbıochjğbocdenemeekofjsodıpgjpadıohgpıadhgpıaddhpboıadfhbpoıadfjpbıochjğboc', '2021-12-24 18:33:35');
+
 --
 -- Dökümü yapılmış tablolar için indeksler
 --
@@ -286,6 +311,12 @@ ALTER TABLE `urun`
   ADD PRIMARY KEY (`urun_id`);
 
 --
+-- Tablo için indeksler `yorum`
+--
+ALTER TABLE `yorum`
+  ADD PRIMARY KEY (`yorum_id`);
+
+--
 -- Dökümü yapılmış tablolar için AUTO_INCREMENT değeri
 --
 
@@ -298,7 +329,7 @@ ALTER TABLE `kategori`
 -- Tablo için AUTO_INCREMENT değeri `kullanici`
 --
 ALTER TABLE `kullanici`
-  MODIFY `kullanici_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `kullanici_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- Tablo için AUTO_INCREMENT değeri `menu`
 --
@@ -314,6 +345,11 @@ ALTER TABLE `slider`
 --
 ALTER TABLE `urun`
   MODIFY `urun_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+--
+-- Tablo için AUTO_INCREMENT değeri `yorum`
+--
+ALTER TABLE `yorum`
+  MODIFY `yorum_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

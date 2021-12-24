@@ -5,7 +5,6 @@ session_start();
 include "baglan.php";
 include "../production/fonksiyon.php";
 
-
 if (isset($_POST["admingiris"])) {
 	$kullanicimail = $_POST["kullanici_mail"];
 	$kullanicipassword = ($_POST["kullanici_password"]);
@@ -651,6 +650,49 @@ if ($_GET['urun_onecikar']=="ok") {
 		Header("Location:../production/urun.php?durum=ok");
 	} else {
 		Header("Location:../production/urun.php?durum=no");
+	}
+}
+
+
+if (isset($_POST['yorumyap'])) { 
+	
+	$url = $_POST['sayfa_url'];
+	$kullanici_id = $_POST['kullanici_id'];
+
+	$yorum = $db -> prepare("INSERT INTO yorum SET 
+		kullanici_id=:kullanici_id,
+		urun_id=:urun_id,
+		yorum_detay=:yorum_detay");
+
+	$insert = $yorum -> execute(array(
+		'kullanici_id' => $kullanici_id,
+		'yorum_detay' => $_POST['yorum_detay'],
+		'urun_id' => $_POST['urun_id']
+	));
+
+	if ($insert) {
+
+		Header("Location:$url?durum=ok");
+
+	} else {
+
+		Header("Location:$url?durum=no");
+	}
+
+}
+
+
+if ($_GET['yorumsil'] == 'ok') {
+
+	$sil = $db->prepare("DELETE FROM yorum WHERE yorum_id=:id");
+	$kontrol = $sil->execute(array(
+		'id' => $_GET["yorum_id"]
+	));
+
+	if ($kontrol) {
+		Header("Location:../production/yorum.php?sil=ok");
+	} else {
+		Header("Location:../production/yorum.php?sil=no");
 	}
 }
 

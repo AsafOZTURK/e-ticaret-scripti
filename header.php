@@ -11,6 +11,12 @@ $ayarsor->execute(array(
 ));
 $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
 
+$hakkimizdasor = $db->prepare("SELECT * FROM hakkimizda WHERE hakkimizda_id=:id");
+$hakkimizdasor->execute(array(
+    'id' => 0
+));
+$hakkimizdacek = $hakkimizdasor->fetch(PDO::FETCH_ASSOC);
+
 
 $kullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kullanici_mail=:mail");
 $kullanicisor->execute(array(

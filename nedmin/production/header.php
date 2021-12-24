@@ -70,10 +70,7 @@ if (!isset($_SESSION["kullanici_mail"])) {
         <div class="main_container">
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
-                    <div class="navbar nav_title" style="border: 0;">
-                        <a href="index.php" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
-                    </div>
-
+                   
                     <div class="clearfix"></div>
 
                     <!-- menu profile quick info -->
@@ -108,6 +105,7 @@ if (!isset($_SESSION["kullanici_mail"])) {
                                     <li><a href="menu.php"><i class="fa fa-bars"></i>Menüler</a></li>
                                     <li><a href="urun.php"><i class="fa fa-cubes"></i>Ürünler</a></li>
                                     <li><a href="kategori.php"><i class="fa fa-image"></i>Kategoriler</a></li>
+                                    <li><a href="yorum.php"><i class="fa fa-comment-o"></i>Yorumlar</a></li>
                                     <li><a href="hakkimizda.php"><i class="fa fa-info"></i>Hakkımızda</a></li>
                                 <li><a href="kullanici.php"><i class="fa fa-user"></i>Kullanıcı İşlemleri</a></li>
                                 </li>

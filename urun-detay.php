@@ -13,6 +13,13 @@ if ($urunsor->rowCount() == 0) {
     exit;
 }
 
+if ($_GET['durum'] == 'ok') { ?>
+    <script>
+        alert("Yorum başarıyla eklendi!");
+    </script>
+
+<?php }
+
 ?>
 
 <div class="container">
@@ -78,13 +85,26 @@ if ($urunsor->rowCount() == 0) {
             </div>
 
             <div class="tab-review">
+                <?php
+                $urun_id = $uruncek['urun_id'];
+                $kullanici_id = $kullanicicek['kullanici_id'];
+
+                $yorumsor = $db->prepare("SELECT * FROM yorum WHERE urun_id=:urun_id");
+                $yorumsor->execute(array(
+                    'urun_id' => $urun_id
+                ));
+
+                $sayii = $yorumsor->rowCount();
+                ?>
+
                 <ul id="myTab" class="nav nav-tabs shop-tab">
-                    <li class="active"><a href="#desc" data-toggle="tab">Ürün Detay</a></li>
-                    <li class=""><a href="#rev" data-toggle="tab">Yorumlar(0)</a></li>
+                    <li <?php if ($_GET['durum'] != 'ok') { ?> class="active" <?php } ?>><a href="#desc" data-toggle="tab">Ürün Detay</a></li>
+                    <li <?php if ($_GET['durum'] == 'ok') { ?> class="active" <?php } ?>><a href="#rev" data-toggle="tab">Yorumlar(<?php echo $sayii; ?>)</a></li>
+
                     <li class=""><a href="#vid" data-toggle="tab">Ürün Video</a></li>
                 </ul>
                 <div id="myTabContent" class="tab-content shop-tab-ct">
-                    <div class="tab-pane fade active in" id="desc">
+                    <div class="tab-pane fade <?php if ($_GET['durum'] != 'ok') { ?> active in <?php } ?>" id="desc">
                         <p>
                             <?php echo $uruncek['urun_detay']; ?>
                         </p>
@@ -92,41 +112,56 @@ if ($urunsor->rowCount() == 0) {
                     <div class="tab-pane fade" id="vid">
                         <p>
 
-                        <?php 
+                            <?php
 
-                        if (strlen($uruncek['urun_video']) > 0) { ?>
-                            <iframe width="500" height="250" src="<?php echo $uruncek['urun_video']; ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <?php } else { 
-                            echo "Bu ürüne video eklenmemiş";
-                        }
-                        ?>
-                        
+                            if (strlen($uruncek['urun_video']) > 0) { ?>
+                                <iframe width="500" height="250" src="<?php echo $uruncek['urun_video']; ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <?php } else {
+                                echo "Bu ürüne video eklenmemiş";
+                            }
+                            ?>
+
                         </p>
                     </div>
-                    <div class="tab-pane fade" id="rev">
+                    <div class="tab-pane fade <?php if ($_GET['durum'] == 'ok') { ?> active in <?php } ?>" id="rev">
 
+                        <?php
+                        while ($yorumcek = $yorumsor->fetch(PDO::FETCH_ASSOC)) { 
+                            
+                            $ykullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kullanici_id=:id");
+                            $ykullanicisor -> execute(array(
+                            'id' => $yorumcek['kullanici_id']
+                            ));
+                            $ykullanicicek = $ykullanicisor->fetch(PDO::FETCH_ASSOC);
 
-                        <p class="dash">
-                            <span>Jhon Doe</span> (11/25/2012)<br><br>
-                            Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse.
-                        </p>
+                            $ykullanici_ad = $ykullanicicek['kullanici_adsoyad'];
+                            ?>
+                            <p class="dash">
+                                <span><?php echo $ykullanici_ad; ?> </span>(<?php echo $yorumcek['yorum_zaman']; ?>)    <br><br>
+                                <?php echo $yorumcek['yorum_detay']; ?>
+                            </p>
 
+                        <?php }
+                        ?>
 
-                        <h4>Yorum Yaz</h4>
+                        <h4>Yorum Yaz</h4>  
+                        <?php
+                        $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 
-                        <?php 
                         if (isset($_SESSION['userkullanici_mail'])) { ?>
 
-                            <form role="form">
-                            <div class="form-group">
-                                <textarea placeholder="Lütfen yorumunuzu yazınız" class="form-control" id="text"></textarea>
-                            </div>
-                            
-                            <button type="submit" name=""   class="btn btn-default btn-red btn-sm">Gönder</button>
-                        </form>
+                            <form role="form" method="POST" action="nedmin/netting/islem.php">
+                                <div class="form-group">
+                                    <textarea placeholder="Lütfen yorumunuzu yazınız" name="yorum_detay" class="form-control" id="text"></textarea>
+                                </div>
+                                <input type="hidden" name="kullanici_id" value="<?php echo $kullanicicek['kullanici_id']; ?>">
+                                <input type="hidden" name="urun_id" value="<?php echo $uruncek['urun_id']; ?>">
+                                <input type="hidden" name="sayfa_url" value="<?php echo 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'] ?>">
+                                <button type="submit" name="yorumyap" class="btn btn-default btn-red btn-sm">Gönder</button>
+                            </form>
 
                         <?php } else { ?>
-                           Yorum yapmak için <a href="register.php">kayıt</a> olmalı yada giriş yapmalısınız.
+                            Yorum yapmak için <a href="register.php">kayıt</a> olmalı yada giriş yapmalısınız.
                         <?php }
                         ?>
 
@@ -146,25 +181,25 @@ if ($urunsor->rowCount() == 0) {
                 $urunsor->execute(array(
                     'kategori_id' => $kategori_id
                 ));
-                
+
                 while ($uruncek = $urunsor->fetch(PDO::FETCH_ASSOC)) { ?>
 
-                <div class="col-md-4">
+                    <div class="col-md-4">
                         <div class="productwrap">
-                        <div class="pr-img">
-                            <div class="hot"></div>
-                            <a href="product.htm"><img src="images\sample-4.jpg" alt="" class="img-responsive"></a>
-                            <div class="pricetag on-sale">
-                                <div class="inner on-sale"><span class="onsale"><span class="oldprice"></span><?php echo $uruncek['urun_fiyat']; ?></span></div>
+                            <div class="pr-img">
+                                <div class="hot"></div>
+                                <a href="product.htm"><img src="images\sample-4.jpg" alt="" class="img-responsive"></a>
+                                <div class="pricetag on-sale">
+                                    <div class="inner on-sale"><span class="onsale"><span class="oldprice"></span><?php echo $uruncek['urun_fiyat']; ?></span></div>
+                                </div>
                             </div>
+                            <span class="smalltitle"><a href="product.htm"><?php echo $uruncek['urun_ad']; ?></a></span>
+                            <span class="smalldesc">Stok Sayısı: <?php echo $uruncek['urun_stok ']; ?></span>
                         </div>
-                        <span class="smalltitle"><a href="product.htm"><?php echo $uruncek['urun_ad']; ?></a></span>
-                        <span class="smalldesc">Stok Sayısı: <?php echo $uruncek['urun_stok ']; ?></span>
                     </div>
-                </div>
 
-            <?php }        
-            ?>
+                <?php }
+                ?>
 
             </div>
             <!--Products-->
