@@ -5,6 +5,7 @@ session_start();
 include "baglan.php";
 include "../production/fonksiyon.php";
 
+
 if (isset($_POST["admingiris"])) {
 	$kullanicimail = $_POST["kullanici_mail"];
 	$kullanicipassword = ($_POST["kullanici_password"]);
@@ -20,12 +21,16 @@ if (isset($_POST["admingiris"])) {
 	$say = $kullanicisor->rowCount();
 
 	if ($say == 1) {
+
 		$_SESSION["kullanici_mail"] = $kullanicimail;
 		Header("Location:../production/index.php");
 		exit;
+
 	} else {
+
 		Header("Location:../production/login.php?durum=no");
 		exit;
+
 	}
 }
 
@@ -212,6 +217,30 @@ if (isset($_POST['userupdate'])) {
 	} else {
 
 		Header("Location:../../hesabim.php?kullanici_id=$kullanici_id&durum=no");
+	}
+}
+
+
+if (isset($_POST['sepeteekle'])) {
+
+	$ekle = $db -> prepare("INSERT INTO sepet SET 
+		urun_adet=:urun_adet,
+		urun_id=:urun_id,
+		kullanici_id=:kullanici_id");
+
+	$insert = $ekle -> execute(array(
+		'urun_adet' => $_POST['urun_adet'],
+		'urun_id' => $_POST['urun_id'],
+		'kullanici_id' => $_POST['kullanici_id']
+	));
+
+	if ($insert) {
+
+		Header("Location:../../sepet.php?durum=ok");
+
+	} else {
+
+		Header("Location:../../sepet.php?durum=no");
 	}
 }
 
@@ -693,6 +722,46 @@ if ($_GET['yorumsil'] == 'ok') {
 		Header("Location:../production/yorum.php?sil=ok");
 	} else {
 		Header("Location:../production/yorum.php?sil=no");
+	}
+}
+
+
+if ($_GET['yorum_onay']=="ok") {
+	
+	$duzenle=$db->prepare("UPDATE yorum SET 
+	yorum_onay=:yorum_onay 
+	WHERE yorum_id={$_GET['yorum_id']}");
+	
+	$update=$duzenle->execute(array(
+		'yorum_onay' => $_GET['yorum_one']
+		));
+
+	if ($update) {
+		Header("Location:../production/yorum.php?durum=ok");
+	} else {
+		Header("Location:../production/yorum.php?durum=no");
+	}
+}
+
+
+if (isset($_POST['yorumduzenle'])) {
+
+	$yorum_id = $_POST['yorum_id'];
+
+	$ayarkaydet = $db->prepare("UPDATE yorum SET
+		yorum_detay=:yorum_detay
+		WHERE yorum_id={$_POST['yorum_id']}");
+
+	$update = $ayarkaydet->execute(array(
+		'yorum_detay' => $_POST['yorum_detay']
+	));
+
+	if ($update) {
+
+		Header("Location:../production/yorum-duzenle.php?yorum_id=$yorum_id&durum=ok");
+	} else {
+
+		Header("Location:../production/yorum-duzenle.php?yorum_id=$yorum_id&durum=no");
 	}
 }
 

@@ -41,10 +41,11 @@ $yorumsor->execute();
                                         <thead>
                                             <tr>
                                                 <th>Sıra No</th>
+                                                <th>Yorum Zaman</th>
                                                 <th>Kullanici Adı</th>
                                                 <th>Ürün Adı</th>
                                                 <th>Yorum</th>
-                                                <th>Yorum Zaman</th>
+                                                <th>Onay</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -77,13 +78,28 @@ $yorumsor->execute();
                                                     ?>
 
                                                     <td align="center"><?php echo $ykullanici_ad ?></td>
-                                                    <td><?php echo $urun_ad; ?></td>
-                                                    <td width="600"><?php echo strlen($yorumcek["yorum_detay"],0,100); ?></td>
                                                     <td><?php echo $yorumcek["yorum_zaman"]; ?></td>
+                                                    <td><?php echo $urun_ad; ?></td>
+                                                    <td width="600" style=""><?php echo substr($yorumcek["yorum_detay"],0,80); ?></td>
+                                                    <td>
+                                                        <center>
+                                                            <?php
+                                                            if ($yorumcek['yorum_onay'] == 0) { ?>
+                                                                <a href="../netting/islem.php?yorum_id=<?php echo $yorumcek['yorum_id'] ?>&yorum_one=1&yorum_onay=ok"><button class="btn btn-success btn-xs">Onayla</button></a>
+                                                            <?php } elseif ($yorumcek['yorum_onay'] == 1) { ?>
+                                                                <a href="../netting/islem.php?yorum_id=<?php echo $yorumcek['yorum_id'] ?>&yorum_one=0&yorum_onay=ok"><button class="btn btn-warning btn-xs">Kaldır</button></a>
+                                                            <?php }
+                                                            ?>
+                                                        </center>
+
+                                                    </td>
+
                                                     <td align="center"><a href="yorum-duzenle.php?yorum_id=<?php echo $yorumcek["yorum_id"]; ?>"><button class="btn-primary btn-xs">Düzenle</button></a></td>
+
                                                     <td align="center"><a href="../netting/islem.php?yorum_id=<?php echo $yorumcek["yorum_id"]; ?>&yorumsil=ok"><button class="btn-danger btn-xs">Sil</button></a></td>
                                                 </tr>
                                             <?php } ?>
+
                                         </tbody>
                                     </table>
                                     <a href=""><button class="btn btn-danger">Hepsini Sil</button></a>

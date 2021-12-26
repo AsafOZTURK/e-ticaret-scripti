@@ -13,12 +13,6 @@ if ($urunsor->rowCount() == 0) {
     exit;
 }
 
-if ($_GET['durum'] == 'ok') { ?>
-    <script>
-        alert("Yorum başarıyla eklendi!");
-    </script>
-
-<?php }
 
 ?>
 
@@ -62,21 +56,24 @@ if ($_GET['durum'] == 'ok') { ?>
                         </div>
                         <div class="average">
                         </div>
-                        <form class="form-horizontal ava" role="form">
+                        <form class="form-horizontal ava" action="nedmin/netting/islem.php" method="POST" role="form">
 
                             <div class="clearfix"></div>
-
+                            
                             <div class="form-group">
                                 <label for="qty" class="col-sm-2 control-label">Adet</label>
                                 <div class="col-sm-4">
                                     <input class="form-control" type="text" name="urun_adet" value="1">
                                 </div>
+                                <input type="hidden" name="urun_id" value="<?php echo $uruncek['urun_id']; ?>">
+                                <input type="hidden" name="kullanici_id" value="<?php echo $kullanicicek['kullanici_id']; ?>">
                                 <div class="col-sm-4">
-                                    <button class="btn btn-default btn-red btn-sm"><span class="addchart">Sepete Ekle </span></button>
+                                    <button type="submit" name="sepeteekle" class="btn btn-default btn-red btn-sm"><span class="addchart">Sepete Ekle </span></button>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
                         </form>
+
                         <div class="sharing">
                             <div class="avatock"><span></span></div>
                         </div>
@@ -89,9 +86,10 @@ if ($_GET['durum'] == 'ok') { ?>
                 $urun_id = $uruncek['urun_id'];
                 $kullanici_id = $kullanicicek['kullanici_id'];
 
-                $yorumsor = $db->prepare("SELECT * FROM yorum WHERE urun_id=:urun_id");
+                $yorumsor = $db->prepare("SELECT * FROM yorum WHERE urun_id=:urun_id AND yorum_onay=:onay");
                 $yorumsor->execute(array(
-                    'urun_id' => $urun_id
+                    'urun_id' => $urun_id,
+                    'onay' => 1
                 ));
 
                 $sayii = $yorumsor->rowCount();
@@ -126,6 +124,12 @@ if ($_GET['durum'] == 'ok') { ?>
                     <div class="tab-pane fade <?php if ($_GET['durum'] == 'ok') { ?> active in <?php } ?>" id="rev">
 
                         <?php
+                        if ($_GET['durum'] == 'ok') { ?>
+                            <script>
+                                alert("Yorum başarıyla eklendi!");
+                            </script>
+                        
+                        <?php }
                         while ($yorumcek = $yorumsor->fetch(PDO::FETCH_ASSOC)) { 
                             
                             $ykullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kullanici_id=:id");
@@ -138,7 +142,7 @@ if ($_GET['durum'] == 'ok') { ?>
                             ?>
                             <p class="dash">
                                 <span><?php echo $ykullanici_ad; ?> </span>(<?php echo $yorumcek['yorum_zaman']; ?>)    <br><br>
-                                <?php echo $yorumcek['yorum_detay']; ?>
+                                <?php echo substr($yorumcek['yorum_detay'],0,100); ?>
                             </p>
 
                         <?php }

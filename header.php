@@ -50,7 +50,7 @@ $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="css\owl.transitions.css">
 
     <!-- fancy Style -->
-	<link rel="stylesheet" type="text/css" href="js\product\jquery.fancybox.css?v=2.1.5" media="screen">
+    <link rel="stylesheet" type="text/css" href="js\product\jquery.fancybox.css?v=2.1.5" media="screen">
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -73,9 +73,10 @@ $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
                     <div class="col-md-8">
                         <div class="pushright">
                             <div class="top">
+
                                 <?php
                                 if (isset($_SESSION['userkullanici_mail'])) { ?>
-                                    <a class="btn btn-default btn-dark">Hoşgeldin<span>--  --</span><?php echo $kullanicicek['kullanici_adsoyad']; ?></a>
+                                    <a class="btn btn-default btn-dark">Hoşgeldin<span>-- --</span><?php echo $kullanicicek['kullanici_adsoyad']; ?></a>
                                 <?php } else { ?>
                                     <a href="#" id="reg" class="btn btn-default btn-dark">Giriş Yap<span>-- yada --</span>Kayıt Ol</a>
                                     <div class="regwrap">
@@ -180,49 +181,84 @@ $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
                             </div>
                         </div>
                         <div class="col-md-2 machart">
-                            <button id="popcart" class="btn btn-default btn-chart btn-sm "><span class="mychart">Cart</span>|<span class="allprice">$0.00</span></button>
+                            <?php
+                            $kullanici_id = $kullanicicek['kullanici_id'];
+
+                            $sepetsor = $db->prepare("SELECT * FROM sepet WHERE kullanici_id=:id");
+                            $sepetsor->execute(array(
+                                'id' => $kullanici_id
+                            ));
+                            $sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC);
+
+                            while ($sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC)) {
+                                $urun_id = $sepetcek['urun_id'];
+
+                                $urunsor = $db->prepare("SELECT * FROM urun WHERE urun_id=:id");
+                                $urunsor->execute(array(
+                                    'id' => $urun_id
+                                ));
+
+                                $uruncek = $urunsor->fetch(PDO::FETCH_ASSOC);
+
+                                $a = $sepetcek['urun_adet'];
+                                $b = $uruncek['urun_fiyat'];
+                                $c = $a * $b;
+
+                                $toplam += $c;
+                            }
+                            ?>
+                            <button id="popcart" class="btn btn-default btn-chart btn-sm "><span class="mychart">Sepet</span>|<span class="allprice"><?php echo $toplam; ?> TL</span></button>
                             <div class="popcart">
                                 <table class="table table-condensed popcart-inner">
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                <a href="product.htm"><img src="images\dummy-1.png" alt="" class="img-responsive"></a>
-                                            </td>
-                                            <td><a href="product.htm">Casio Exilim Zoom</a><br><span>Color: green</span></td>
-                                            <td>1X</td>
-                                            <td>$138.80</td>
-                                            <td><a href=""><i class="fa fa-times-circle fa-2x"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <a href="product.htm"><img src="images\dummy-1.png" alt="" class="img-responsive"></a>
-                                            </td>
-                                            <td><a href="product.htm">Casio Exilim Zoom</a><br><span>Color: green</span></td>
-                                            <td>1X</td>
-                                            <td>$138.80</td>
-                                            <td><a href=""><i class="fa fa-times-circle fa-2x"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <a href="product.htm"><img src="images\dummy-1.png" alt="" class="img-responsive"></a>
-                                            </td>
-                                            <td><a href="product.htm">Casio Exilim Zoom</a><br><span>Color: green</span></td>
-                                            <td>1X</td>
-                                            <td>$138.80</td>
-                                            <td><a href=""><i class="fa fa-times-circle fa-2x"></i></a></td>
-                                        </tr>
+                                        <?php
+                                        $kullanici_id = $kullanicicek['kullanici_id'];
+                                        $sepetsor = $db->prepare("SELECT * FROM sepet WHERE kullanici_id=:id");
+                                        $sepetsor->execute(array(
+                                            'id' => $kullanici_id
+                                        ));
+                                        $sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC);
+                                        $toplam = 0;    
+
+                                        while ($sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC)) {
+                                            $urun_id = $sepetcek['urun_id'];
+
+                                            $urunsor = $db->prepare("SELECT * FROM urun WHERE urun_id=:id");
+                                            $urunsor->execute(array(
+                                                'id' => $urun_id
+                                            ));
+
+                                            $uruncek = $urunsor->fetch(PDO::FETCH_ASSOC);
+
+                                            $a = $sepetcek['urun_adet'];
+                                            $b = $uruncek['urun_fiyat'];
+                                            $c = $a * $b; 
+                        
+                                            $toplam += $c;
+                                        ?>
+                                            <tr>
+                                                <td>
+                                                    <a href="product.htm"><img src="images\dummy-1.png" alt="" class="img-responsive"></a>
+                                                </td>
+                                                <td><a href="product.htm"><?php echo $uruncek['urun_ad']; ?></a><br><span></span></td>
+                                                <td><?php echo $sepetcek['urun_adet']; ?></td>
+                                                <td><?php echo $uruncek['urun_fiyat']; ?> TL</td>
+                                                <!-- <td><a href=""><i class="fa fa-times-circle fa-2x"></i></a></td> SİLME BUTONU --> 
+                                            </tr>
+
+                                        <?php } ?>
+
                                     </tbody>
                                 </table>
-                                <span class="sub-tot">Sub-Total : <span>$277.60</span> | <span>Vat (17.5%)</span> : $36.00 </span>
                                 <br>
                                 <div class="btn-popcart">
-                                    <a href="checkout.htm" class="btn btn-default btn-red btn-sm">Checkout</a>
-                                    <a href="cart.htm" class="btn btn-default btn-red btn-sm">More</a>
+                                    <a href="checkout.htm" class="btn btn-default btn-red btn-sm">Alışverişi Tamamla</a>
+                                    <a href="sepet.php" class="btn btn-default btn-red btn-sm">Sepeti Gör</a>
                                 </div>
                                 <div class="popcart-tot">
                                     <p>
-                                        Total<br>
-                                        <span>$313.60</span>
+                                        Toplam<br>
+                                        <span><?php echo $toplam; ?> TL</span>
                                     </p>
                                 </div>
                                 <div class="clearfix"></div>

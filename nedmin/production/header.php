@@ -1,4 +1,4 @@
-<?php 
+<?php
 ob_start();
 session_start();
 
@@ -6,25 +6,25 @@ include "../netting/baglan.php";
 include "fonksiyon.php";
 
 $ayarsor = $db->prepare("SELECT * FROM ayar WHERE ayar_id=:id");
-$ayarsor -> execute(array(
+$ayarsor->execute(array(
     'id' => 0
 ));
 $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
 
 $kullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kullanici_mail=:mail");
-$kullanicisor -> execute(array(
+$kullanicisor->execute(array(
     'mail' => $_SESSION["kullanici_mail"]
 ));
 
-$say = $kullanicisor -> rowCount();
+$say = $kullanicisor->rowCount();
 
 $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
 
 
-if ($say==0) {
+if ($say == 0) {
     Header("Location:login.php?durum=izinsiz");
     exit;
-} 
+}
 /*  1. YÖNTEM BU AMA GÜVENİLİR DEĞİL O YÜZDEN KULLANIMIYORUZ
 if (!isset($_SESSION["kullanici_mail"])) {
 
@@ -70,7 +70,7 @@ if (!isset($_SESSION["kullanici_mail"])) {
         <div class="main_container">
             <div class="col-md-3 left_col">
                 <div class="left_col scroll-view">
-                   
+
                     <div class="clearfix"></div>
 
                     <!-- menu profile quick info -->
@@ -101,12 +101,12 @@ if (!isset($_SESSION["kullanici_mail"])) {
                                         <li><a href="sosyal-ayarlar.php">Sosyal Medya Ayarları</a></li>
                                         <li><a href="mail-ayarlar.php">Mail Ayarları</a></li>
                                     </ul>
-                                    <li><a href="slider.php"><i class="fa fa-image"></i>Slider</a></li>
-                                    <li><a href="menu.php"><i class="fa fa-bars"></i>Menüler</a></li>
-                                    <li><a href="urun.php"><i class="fa fa-cubes"></i>Ürünler</a></li>
-                                    <li><a href="kategori.php"><i class="fa fa-image"></i>Kategoriler</a></li>
-                                    <li><a href="yorum.php"><i class="fa fa-comment-o"></i>Yorumlar</a></li>
-                                    <li><a href="hakkimizda.php"><i class="fa fa-info"></i>Hakkımızda</a></li>
+                                <li><a href="slider.php"><i class="fa fa-image"></i>Slider</a></li>
+                                <li><a href="menu.php"><i class="fa fa-bars"></i>Menüler</a></li>
+                                <li><a href="urun.php"><i class="fa fa-cubes"></i>Ürünler</a></li>
+                                <li><a href="kategori.php"><i class="fa fa-image"></i>Kategoriler</a></li>
+                                <li><a href="yorum.php"><i class="fa fa-comment-o"></i>Yorumlar</a></li>
+                                <li><a href="hakkimizda.php"><i class="fa fa-info"></i>Hakkımızda</a></li>
                                 <li><a href="kullanici.php"><i class="fa fa-user"></i>Kullanıcı İşlemleri</a></li>
                                 </li>
                             </ul>
