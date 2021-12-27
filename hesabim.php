@@ -121,7 +121,7 @@ include "header.php";
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Kullanıcı Durum<span class="required">*</span>
                     </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div >
                         <select id="heard" name="kullanici_durum" required class="form-control">
 
                             <option value="1" <?php echo $kullanicicek["kullanici_durum"]== '1' ? 'selected""': ''; ?>>Aktif</option>
@@ -134,8 +134,13 @@ include "header.php";
                     <input type="hidden" name="kullanici_id" value="<?php echo $kullanicicek['kullanici_id']; ?>">
                 <center><button type="submit" name="userupdate" class="btn btn-default btn-success">Bilgilerimi Güncelle</button></center>
             </div>
-        </div>
-    </form>
+            <div class="col-md-6">
+                <div class="title-bg">
+                    <div class="title">Şifremi Unuttum</div>
+                </div>
+                <center><a href="sifre-guncelle.php"><img width="460" src="https://iasbh.tmgrup.com.tr/09120d/650/344/0/8/865/462?u=https://isbh.tmgrup.com.tr/sbh/2020/08/30/internet-sifresi-degistirme-turk-telekom-ttnet-modem-internet-sifresi-nasil-degistirilir-tk1-1598775757827.jpg"></a></center>
+            </div>
+        </form>
     <div class="spacer"></div>
 </div>
 

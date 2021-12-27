@@ -106,6 +106,7 @@ if (!isset($_SESSION["kullanici_mail"])) {
                                 <li><a href="urun.php"><i class="fa fa-cubes"></i>Ürünler</a></li>
                                 <li><a href="kategori.php"><i class="fa fa-image"></i>Kategoriler</a></li>
                                 <li><a href="yorum.php"><i class="fa fa-comment-o"></i>Yorumlar</a></li>
+                                <li><a href="banka.php"><i class="fa fa-bank"></i>Bankalar</a></li>
                                 <li><a href="hakkimizda.php"><i class="fa fa-info"></i>Hakkımızda</a></li>
                                 <li><a href="kullanici.php"><i class="fa fa-user"></i>Kullanıcı İşlemleri</a></li>
                                 </li>

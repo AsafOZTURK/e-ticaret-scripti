@@ -24,6 +24,7 @@ $sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC);
                 <tr>
 
                     <th>Remove</th>
+                    <th>Ürün Kodu</th>
                     <th>Ürün Görsel</th>
                     <th>Ürün Adı</th>
                     <th>Ürün Fiyatı</th>
@@ -55,10 +56,11 @@ $sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC);
                         <td>
                             <form><input type="checkbox"></form>
                         </td>
+                        <td width="40"><?php echo $b = $uruncek['urun_id']; ?></td>
                         <td><img src="images\demo-img.jpg" width="60"></td>
                         <td width="400"><?php echo $uruncek['urun_ad']; ?></td>
                         <td><?php echo $b = $uruncek['urun_fiyat']; ?>TL </td>
-                        <td><form><input type="text" value="<?php echo $sepetcek['urun_adet']; ?>"class="form-control quantity"></form></td>
+                        <td><form><?php echo $sepetcek['urun_adet']; ?></form></td>
                         <td><?php echo $c; ?>TL</td>
                     </tr>
                 <?php }
@@ -75,7 +77,7 @@ $sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC);
             <div class="subtotal-wrap">
                 <div class="total">Toplam Fiyat: <span class="bigprice"><?php echo $toplam; ?> TL</span></div>
                 <div class="clearfix"></div>
-                <a href="index.php" class="btn btn-default btn-yellow">Alışverişi Tamamla</a>
+                <a href="odeme.php" class="btn btn-default btn-yellow">Alışverişi Tamamla</a>
             </div>
             <div class="clearfix"></div>
         </div>

@@ -766,6 +766,78 @@ if (isset($_POST['yorumduzenle'])) {
 }
 
 
+if (isset($_POST['bankaekle'])) {
+
+	$bankaekle = $db->prepare("INSERT INTO banka SET
+		banka_ad=:banka_ad,
+		banka_iban=:banka_iban,
+        banka_hesapadsoyad=:banka_hesapadsoyad,
+        banka_durum=:banka_durum
+		");
+
+	$insert = $bankaekle->execute(array(
+		'banka_ad' => $_POST['banka_ad'],
+		'banka_iban' => $_POST['banka_iban'],
+		'banka_hesapadsoyad' => $_POST['banka_hesapadsoyad'],
+		'banka_durum' => $_POST['banka_durum'],
+	));
+
+	if ($insert) {
+
+		Header("Location:../production/banka.php?durum=ok");
+		exit;
+	} else {
+
+		Header("Location:../production/banka.php?durum=no");
+		exit;
+	}
+}
+
+
+if (isset($_POST['bankaduzenle'])) {
+
+	$banka_id = $_POST['banka_id'];
+
+	$ayarkaydet = $db->prepare("UPDATE banka SET
+		banka_ad=:banka_ad,
+        banka_iban=:banka_iban,
+        banka_hesapadsoyad=:banka_hesapadsoyad,
+		banka_durum=:banka_durum
+		WHERE banka_id={$_POST['banka_id']}");
+
+	$update = $ayarkaydet->execute(array(
+		'banka_ad' => $_POST['banka_ad'],
+		'banka_iban' => $_POST['banka_iban'],
+		'banka_hesapadsoyad' => $_POST['banka_hesapadsoyad'],
+		'banka_durum' => $_POST['banka_durum']
+	));
+
+
+	if ($update) {
+
+		Header("Location:../production/banka-duzenle.php?banka_id=$banka_id&durum=ok");
+	} else {
+
+		Header("Location:../production/banka-duzenle.php?banka_id=$banka_id&durum=no");
+	}
+}
+
+
+
+if ($_GET["bankasil"] == 'ok') {
+	$sil = $db->prepare("DELETE FROM banka WHERE banka_id=:id");
+	$kontrol = $sil->execute(array(
+		'id' => $_GET["banka_id"]
+	));
+
+	if ($kontrol) {
+		Header("Location:../production/banka.php?sil=ok");
+	} else {
+		Header("Location:../production/banka.php?sil=no");
+	}
+}
+
+
 if (isset($_POST["genelayarkaydet"])) {
 	$ayarkaydet = $db->prepare("UPDATE ayar SET 
     ayar_title=:ayar_title,
