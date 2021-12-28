@@ -46,6 +46,7 @@ $urunsor->execute();
                                                 <th>Ürün Adı</th>
                                                 <th>Ürün Fiyat</th>
                                                 <th>Ürün Stok</th>
+                                                <th></th>
                                                 <th>Ürün Durum</th>
                                                 <th>Öne Çıkarma</th>
                                                 <th></th>
@@ -60,6 +61,7 @@ $urunsor->execute();
                                                     <td><?php echo $uruncek["urun_ad"]; ?></td>
                                                     <td><?php echo $uruncek["urun_fiyat"]; ?></td>
                                                     <td><?php echo $uruncek["urun_stok"]; ?></td>
+                                                    <td><a href="urun-galeri.php?urun_id=<?php echo $uruncek['urun_id'];?>"><center><button class="btn btn-succes btn-xs">Fotoğraf İşlemleri</button></center></a></td>
                                                     <td align="center">
 
                                                         <?php

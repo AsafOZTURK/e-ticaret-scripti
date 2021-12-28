@@ -2,21 +2,7 @@
 include "header.php";
 ?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="page-title-wrap">
-                <div class="page-title-inner">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="bigtitle">Siparişlerim</div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container">  
     <div class="title-bg">
         <div class="title">Sipariş Bilgilerim</div>
     </div>
@@ -28,18 +14,39 @@ include "header.php";
                     <th>Sipariş No</th>
                     <th>Tarih</th>
                     <th>Tutar</th>
+                    <th>Tip</th>
+                    <th>Durum</th>
                     <th></th>
 
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td><img src="images\demo-img.jpg" width="100"></td>
-                    <td></td>
-                    <td><a href=""><button class="btn btn-success btn-xs">Detay</button></a></td>
-                </tr>
-            </tbody>
+            <?php
+            $kullanici_id = $kullanicicek['kullanici_id'];
+
+            $siparissor = $db->prepare("SELECT * FROM siparis WHERE kullanici_id=:id");
+            $siparissor->execute(array(
+                'id' => $kullanici_id
+            ));
+
+            while ($sipariscek = $siparissor->fetch(PDO::FETCH_ASSOC)) { ?>
+                <tbody>
+                    <tr>
+                        <td><?php echo $sipariscek['siparis_id']; ?></td>
+                        <td><?php echo $sipariscek['siparis_zaman']; ?></td>
+                        <td><?php echo $sipariscek['siparis_toplam']; ?> TL</td>
+                        <td><?php echo $sipariscek['siparis_tip']; ?></td>
+                        <td><?php
+                            if ($sipariscek["siparis_durum"] == 1) { ?>
+                                <button class="btn btn-success btn-xs">Ödeme Tamamlandı</button>
+                            <?php } else { ?>
+                                <button class="btn btn-danger btn-xs">Ödeme Yapılamadı</button>
+                            <?php } ?>
+                        </td>
+                        <td><a href=""><button class="btn btn-success btn-xs">Detay</button></a></td>
+                    </tr>
+                </tbody>
+            <?php } ?>
+
         </table>
     </div>
     <div class="spacer"></div>

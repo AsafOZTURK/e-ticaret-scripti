@@ -25,19 +25,17 @@ if (isset($_POST["admingiris"])) {
 		$_SESSION["kullanici_mail"] = $kullanicimail;
 		Header("Location:../production/index.php");
 		exit;
-
 	} else {
 
 		Header("Location:../production/login.php?durum=no");
 		exit;
-
 	}
 }
 
 
 if (isset($_POST['kullanicigiris'])) {
 
-	$kullanicimail = htmlspecialchars($_POST["kullanici_mail"]) ;
+	$kullanicimail = htmlspecialchars($_POST["kullanici_mail"]);
 	$kullanicipassword = htmlspecialchars($_POST["kullanici_password"]);
 
 	$kullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kullanici_mail=:mail AND kullanici_password=:pass AND kullanici_yetki=:yetki AND kullanici_durum=:durum");
@@ -56,12 +54,10 @@ if (isset($_POST['kullanicigiris'])) {
 		$_SESSION["userkullanici_mail"] = $kullanicimail;
 		Header("Location:../../index.php");
 		exit;
-
 	} else {
 
 		Header("Location:../../index.php?durum=basarisizgiris");
 		exit;
-
 	}
 }
 
@@ -74,7 +70,7 @@ if (isset($_POST["kullanicikaydet"])) {
 	$kullanici_passwordone = htmlspecialchars($_POST['kullanici_passwordone']);
 	$kullanici_passwordtwo = htmlspecialchars($_POST['kullanici_passwordtwo']);
 
-	if ($kullanici_passwordone==$kullanici_passwordtwo) {
+	if ($kullanici_passwordone == $kullanici_passwordtwo) {
 
 		if (strlen($kullanici_passwordone) >= 6) {
 
@@ -90,24 +86,23 @@ if (isset($_POST["kullanicikaydet"])) {
 				$password = md5($kullanici_passwordone);
 				$kullanici_yetki = 1;
 
-				$kullanicikaydet=$db->prepare("INSERT INTO kullanici SET
+				$kullanicikaydet = $db->prepare("INSERT INTO kullanici SET
 					kullanici_adsoyad=:kullanici_adsoyad,
 					kullanici_mail=:kullanici_mail,
 					kullanici_password=:kullanici_password,
 					kullanici_yetki=:kullanici_yetki
 					");
-				$insert=$kullanicikaydet->execute(array(
+				$insert = $kullanicikaydet->execute(array(
 					'kullanici_adsoyad' => $kullanici_adsoyad,
 					'kullanici_mail' => $kullanici_mail,
 					'kullanici_password' => $password,
 					'kullanici_yetki' => $kullanici_yetki
-					));
+				));
 
 				if ($insert) {
 
 					Header("Location:../../index.php?durum=loginbasarili");
 					exit;
-
 				} else {
 
 					Header("Location:../../register.php?durum=basarisiz");
@@ -179,59 +174,57 @@ if ($_GET["kullanicisil"] == 'ok') {
 
 if (isset($_POST['sifreguncelle'])) {
 
-	echo $kullanici_eskipassword=trim($_POST['kullanici_password']); echo "<br>";
-	echo $kullanici_passwordone=trim($_POST['kullanici_passwordone']); echo "<br>";
-	echo $kullanici_passwordtwo=trim($_POST['kullanici_passwordtwo']); echo "<br>";
+	echo $kullanici_eskipassword = trim($_POST['kullanici_password']);
+	echo "<br>";
+	echo $kullanici_passwordone = trim($_POST['kullanici_passwordone']);
+	echo "<br>";
+	echo $kullanici_passwordtwo = trim($_POST['kullanici_passwordtwo']);
+	echo "<br>";
 
-	$kullanici_password=md5($kullanici_eskipassword);
+	$kullanici_password = md5($kullanici_eskipassword);
 
-	$kullanicisor=$db->prepare("SELECT * FROM kullanici WHERE kullanici_password=:pass");
+	$kullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kullanici_password=:pass");
 	$kullanicisor->execute(array(
 		'pass' => $kullanici_password
-		));
+	));
 
-	$say=$kullanicisor->rowCount();
+	$say = $kullanicisor->rowCount();
 
-	if ($say==0) {
+	if ($say == 0) {
 
 		Header("Location:../../sifre-guncelle?durum=eskisifrehata");
-
 	} else {
 
-		if ($kullanici_passwordone==$kullanici_passwordtwo) {
+		if ($kullanici_passwordone == $kullanici_passwordtwo) {
 
-			if (strlen($kullanici_passwordone)>=6) {
+			if (strlen($kullanici_passwordone) >= 6) {
 
-				$password=md5($kullanici_passwordone);
-				$kullanici_yetki=1;
+				$password = md5($kullanici_passwordone);
+				$kullanici_yetki = 1;
 
-				$kullanicikaydet=$db->prepare("UPDATE kullanici SET
+				$kullanicikaydet = $db->prepare("UPDATE kullanici SET
 					kullanici_password=:kullanici_password
 					WHERE kullanici_id={$_POST['kullanici_id']}");
-		
-				$insert=$kullanicikaydet->execute(array(
+
+				$insert = $kullanicikaydet->execute(array(
 					'kullanici_password' => $password
-					));
-					
+				));
+
 				if ($insert) {
 
 					Header("Location:../../sifre-guncelle.php?durum=sifredegisti");
-
 				} else {
 
 					Header("Location:../../sifre-guncelle.php?durum=no");
-
 				}
 			} else {
 
 				Header("Location:../../sifre-guncelle.php?durum=eksiksifre");
-
 			}
 		} else {
 
 			Header("Location:../../sifre-guncelle?durum=sifreleruyusmuyor");
 			exit;
-
 		}
 	}
 	exit;
@@ -239,11 +232,9 @@ if (isset($_POST['sifreguncelle'])) {
 	if ($update) {
 
 		Header("Location:../../sifre-guncelle?durum=ok");
-
 	} else {
 
 		Header("Location:../../sifre-guncelle?durum=no");
-
 	}
 }
 
@@ -294,12 +285,12 @@ if (isset($_POST['userupdate'])) {
 
 if (isset($_POST['sepeteekle'])) {
 
-	$ekle = $db -> prepare("INSERT INTO sepet SET 
+	$ekle = $db->prepare("INSERT INTO sepet SET 
 		urun_adet=:urun_adet,
 		urun_id=:urun_id,
 		kullanici_id=:kullanici_id");
 
-	$insert = $ekle -> execute(array(
+	$insert = $ekle->execute(array(
 		'urun_adet' => $_POST['urun_adet'],
 		'urun_id' => $_POST['urun_id'],
 		'kullanici_id' => $_POST['kullanici_id']
@@ -308,7 +299,6 @@ if (isset($_POST['sepeteekle'])) {
 	if ($insert) {
 
 		Header("Location:../../sepet.php?durum=ok");
-
 	} else {
 
 		Header("Location:../../sepet.php?durum=no");
@@ -645,9 +635,9 @@ if ($_GET["menusil"] == 'ok') {
 
 if (isset($_POST['urunekle'])) {
 
-	$urun_seourl=seo($_POST['urun_ad']);
+	$urun_seourl = seo($_POST['urun_ad']);
 
-	$kaydet=$db->prepare("INSERT INTO urun SET
+	$kaydet = $db->prepare("INSERT INTO urun SET
 		kategori_id=:kategori_id,
 		urun_ad=:urun_ad,
 		urun_detay=:urun_detay,
@@ -659,7 +649,7 @@ if (isset($_POST['urunekle'])) {
 		urun_stok=:urun_stok,	
 		urun_seourl=:seourl		
 		");
-	$insert=$kaydet->execute(array(
+	$insert = $kaydet->execute(array(
 		'kategori_id' => $_POST['kategori_id'],
 		'urun_ad' => $_POST['urun_ad'],
 		'urun_detay' => $_POST['urun_detay'],
@@ -671,25 +661,24 @@ if (isset($_POST['urunekle'])) {
 		'urun_stok' => $_POST['urun_stok'],
 		'seourl' => $urun_seourl
 
-		));
+	));
 
 	if ($insert) {
 
 		Header("Location:../production/urun.php?durum=ok");
-
 	} else {
 
 		Header("Location:../production/urun.php?durum=no");
 	}
-
 }
+
 
 if (isset($_POST['urunduzenle'])) {
 
-	$urun_id=$_POST['urun_id'];
-	$urun_seourl=seo($_POST['urun_ad']);
+	$urun_id = $_POST['urun_id'];
+	$urun_seourl = seo($_POST['urun_ad']);
 
-	$kaydet=$db->prepare("UPDATE urun SET
+	$kaydet = $db->prepare("UPDATE urun SET
 		kategori_id=:kategori_id,
 		urun_ad=:urun_ad,
 		urun_detay=:urun_detay,
@@ -702,7 +691,7 @@ if (isset($_POST['urunduzenle'])) {
 		urun_seourl=:seourl		
 		WHERE urun_id={$_POST['urun_id']}");
 
-	$update=$kaydet->execute(array(
+	$update = $kaydet->execute(array(
 		'kategori_id' => $_POST['kategori_id'],
 		'urun_ad' => $_POST['urun_ad'],
 		'urun_detay' => $_POST['urun_detay'],
@@ -713,7 +702,7 @@ if (isset($_POST['urunduzenle'])) {
 		'urun_onecikar' => $_POST['urun_onecikar'],
 		'urun_stok' => $_POST['urun_stok'],
 		'seourl' => $urun_seourl
-		));
+	));
 
 	if ($update) {
 		Header("Location:../production/urun-duzenle.php?durum=ok&urun_id=$urun_id");
@@ -738,13 +727,13 @@ if ($_GET['urunsil'] == 'ok') {
 }
 
 
-if ($_GET['urun_onecikar']=="ok") {
-	
-	$duzenle=$db->prepare("UPDATE urun SET urun_onecikar=:urun_onecikar WHERE urun_id={$_GET['urun_id']}");
-	
-	$update=$duzenle->execute(array(
+if ($_GET['urun_onecikar'] == "ok") {
+
+	$duzenle = $db->prepare("UPDATE urun SET urun_onecikar=:urun_onecikar WHERE urun_id={$_GET['urun_id']}");
+
+	$update = $duzenle->execute(array(
 		'urun_onecikar' => $_GET['urun_one']
-		));
+	));
 
 	if ($update) {
 		Header("Location:../production/urun.php?durum=ok");
@@ -754,17 +743,17 @@ if ($_GET['urun_onecikar']=="ok") {
 }
 
 
-if (isset($_POST['yorumyap'])) { 
-	
+if (isset($_POST['yorumyap'])) {
+
 	$url = $_POST['sayfa_url'];
 	$kullanici_id = $_POST['kullanici_id'];
 
-	$yorum = $db -> prepare("INSERT INTO yorum SET 
+	$yorum = $db->prepare("INSERT INTO yorum SET 
 		kullanici_id=:kullanici_id,
 		urun_id=:urun_id,
 		yorum_detay=:yorum_detay");
 
-	$insert = $yorum -> execute(array(
+	$insert = $yorum->execute(array(
 		'kullanici_id' => $kullanici_id,
 		'yorum_detay' => $_POST['yorum_detay'],
 		'urun_id' => $_POST['urun_id']
@@ -773,12 +762,10 @@ if (isset($_POST['yorumyap'])) {
 	if ($insert) {
 
 		Header("Location:$url?durum=ok");
-
 	} else {
 
 		Header("Location:$url?durum=no");
 	}
-
 }
 
 
@@ -797,15 +784,15 @@ if ($_GET['yorumsil'] == 'ok') {
 }
 
 
-if ($_GET['yorum_onay']=="ok") {
-	
-	$duzenle=$db->prepare("UPDATE yorum SET 
+if ($_GET['yorum_onay'] == "ok") {
+
+	$duzenle = $db->prepare("UPDATE yorum SET 
 	yorum_onay=:yorum_onay 
 	WHERE yorum_id={$_GET['yorum_id']}");
-	
-	$update=$duzenle->execute(array(
+
+	$update = $duzenle->execute(array(
 		'yorum_onay' => $_GET['yorum_one']
-		));
+	));
 
 	if ($update) {
 		Header("Location:../production/yorum.php?durum=ok");
@@ -894,7 +881,6 @@ if (isset($_POST['bankaduzenle'])) {
 }
 
 
-
 if ($_GET["bankasil"] == 'ok') {
 	$sil = $db->prepare("DELETE FROM banka WHERE banka_id=:id");
 	$kontrol = $sil->execute(array(
@@ -905,6 +891,79 @@ if ($_GET["bankasil"] == 'ok') {
 		Header("Location:../production/banka.php?sil=ok");
 	} else {
 		Header("Location:../production/banka.php?sil=no");
+	}
+}
+
+
+if (isset($_POST['siparisekle'])) {
+
+	$siparistip = "Banka Havalesi";
+
+	$kaydet = $db->prepare("INSERT INTO siparis SET
+		kullanici_id=:kullanici_id,
+		siparis_tip=:siparis_tip,
+		siparis_banka=:siparis_banka,
+		siparis_toplam=:siparis_toplam
+		");
+
+	$insert = $kaydet->execute(array(
+		'kullanici_id' => $_POST['kullanici_id'],
+		'siparis_toplam' => $_POST['siparis_toplam'],
+		'siparis_banka' => $_POST['siparis_banka'],
+		'siparis_tip' => $siparistip
+	));
+
+	if ($insert) {
+
+		$siparisid = $db->lastInsertId();
+		$kullanici_id = $_POST['kullanici_id'];
+
+		$sepetsor = $db->prepare("SELECT * FROM sepet WHERE kullanici_id=:id");
+		$sepetsor->execute(array(
+			'id' => $kullanici_id
+		));
+
+		while($sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC)) {
+
+			$urun_id = $sepetcek['urun_id'];
+			$urun_adet = $sepetcek['urun_adet'];
+
+			$urunsor = $db->prepare("SELECT * FROM urun WHERE urun_id=:id");
+			$urunsor->execute(array(
+				'id' => $urun_id
+			));
+
+			$uruncek = $urunsor->fetch(PDO::FETCH_ASSOC);
+			$urun_fiyat = $uruncek['urun_fiyat'];
+
+			$kaydet = $db->prepare("INSERT INTO siparisdetay SET
+					siparis_id=:siparis_id,
+					urun_id=:urun_id,
+					urun_fiyat=:urun_fiyat,
+					urun_adet=:urun_adet
+					");
+
+			$insert = $kaydet->execute(array(
+				'siparis_id' => $siparisid,
+				'urun_id' => $urun_id,
+				'urun_fiyat' => $urun_fiyat,
+				'urun_adet' => $urun_adet
+			));
+
+			if ($insert) {
+				// İşlem başarılıysa sepetteki ürünlerimini sileriz
+				$sil = $db -> prepare("DELETE FROM sepet WHERE kullanici_id=:kullanici_id");
+				$kontrol = $sil -> execute(array(
+					'kullanici_id' => $kullanici_id
+				));
+				Header("Location:../../siparislerim.php?durum=ok");
+				exit;
+			}
+		}
+
+	} else {
+		// 	Header("Location:../production/siparis.php?durum=no");
+
 	}
 }
 

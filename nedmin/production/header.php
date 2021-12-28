@@ -60,7 +60,11 @@ if (!isset($_SESSION["kullanici_mail"])) {
     <link href="../vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
     <link href="../vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-
+    
+    <!-- Dropzone js -->
+    <link href="../vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
+    <script src="../vendors/dropzone/dist/min/dropzone.min.js"></script>
+    
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
 </head>
