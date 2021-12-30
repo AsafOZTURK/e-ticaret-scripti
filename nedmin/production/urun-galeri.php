@@ -75,13 +75,12 @@ include 'header.php';
 
               $limit = ($sayfa - 1) * $sayfada;
 
-              $urunfotosor = $db->prepare("select * from urunfoto where urun_id=:urun_id order by urunfoto_id DESC limit $limit,$sayfada");
+              $urunfotosor = $db->prepare("SELECT * FROM urunfoto WHERE urun_id=:urun_id ORDER BY urunfoto_id DESC LIMIT $limit,$sayfada");
               $urunfotosor->execute(array(
                 'urun_id' => $_GET['urun_id']
               ));
 
               while ($urunfotocek = $urunfotosor->fetch(PDO::FETCH_ASSOC)) { ?>
-
                 <div class="col-md-55">
                   <label>
                     <div class="image view view-first">

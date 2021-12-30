@@ -742,6 +742,27 @@ if ($_GET['urun_onecikar'] == "ok") {
 	}
 }
 
+if (isset($_POST['urunfotosil'])) {
+
+	$urun_id = $_GET['urun_id'];
+	$chechklist = $_POST['urunfotosec'];
+
+	foreach ($chechklist as $list) {
+		$sil = $db -> prepare("SELECT * FROM urunfoto WHERE urunfoto_id=:fotoid");
+		$kontrol = $sil -> execute(array(
+			'fotoid' => $list
+		));
+
+		if ($kontrol) {
+			Header("Location:../production/urun-galeri.php?urun_id=$urun_id?durum=ok");
+
+		} else {
+			Header("Location:../production/urun-galeri.php?urun_id=$urun_id?durum=no");
+
+		}
+	}
+}
+
 
 if (isset($_POST['yorumyap'])) {
 
@@ -915,7 +936,7 @@ if (isset($_POST['siparisekle'])) {
 
 	if ($insert) {
 
-		$siparisid = $db->lastInsertId();
+		$siparis_id = $db->lastInsertId();
 		$kullanici_id = $_POST['kullanici_id'];
 
 		$sepetsor = $db->prepare("SELECT * FROM sepet WHERE kullanici_id=:id");
@@ -934,6 +955,7 @@ if (isset($_POST['siparisekle'])) {
 			));
 
 			$uruncek = $urunsor->fetch(PDO::FETCH_ASSOC);
+
 			$urun_fiyat = $uruncek['urun_fiyat'];
 
 			$kaydet = $db->prepare("INSERT INTO siparisdetay SET
@@ -944,7 +966,7 @@ if (isset($_POST['siparisekle'])) {
 					");
 
 			$insert = $kaydet->execute(array(
-				'siparis_id' => $siparisid,
+				'siparis_id' => $siparis_id,
 				'urun_id' => $urun_id,
 				'urun_fiyat' => $urun_fiyat,
 				'urun_adet' => $urun_adet
@@ -956,13 +978,14 @@ if (isset($_POST['siparisekle'])) {
 				$kontrol = $sil -> execute(array(
 					'kullanici_id' => $kullanici_id
 				));
+
 				Header("Location:../../siparislerim.php?durum=ok");
 				exit;
 			}
 		}
 
 	} else {
-		// 	Header("Location:../production/siparis.php?durum=no");
+		Header("Location:../siparislerim.php?durum=no");
 
 	}
 }

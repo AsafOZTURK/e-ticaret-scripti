@@ -16,10 +16,10 @@ if (!empty($_FILES)) {
     $benzersizsayi3 = rand(20000,32000);
     $benzersizsayi4 = rand(20000,32000);
 
-    $benzersizad = $benzersizsayi1 . $benzersizsayi2 . $benzersizsayi3 . $benzersizsayi4;
+    $benzersizad = $benzersizsayi1.$benzersizsayi2.$benzersizsayi3.$benzersizsayi4;
     $refimgyol = substr($uploads_dir, 6) ."/". $benzersizad.$name;
 
-    @move_uploaded_file($tmpname, "uploads_dir/$benzersizad$name");
+    @move_uploaded_file($tmpname, "$uploads_dir/$benzersizad$name");
 
     $urun_id = $_POST['urun_id'];
 
@@ -33,5 +33,6 @@ if (!empty($_FILES)) {
         'resimyol' => $refimgyol
     ));
 }
-
 ?>
+
+<!-- if ($_FILES['slider_resimyol']['size'] > 1000) resim boyunu şartlandırmak için -->
