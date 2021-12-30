@@ -26,13 +26,22 @@ include "header.php";
 				'urun_durum' => 1
 			));
 
-			while ($uruncek = $urunsor->fetch(PDO::FETCH_ASSOC)) { ?>
+			while ($uruncek = $urunsor->fetch(PDO::FETCH_ASSOC)) { 
+				$urun_id = $uruncek['urun_id'];
+
+				$urunfotosor = $db->prepare("SELECT * FROM urunfoto WHERE urun_id=:urun_id ORDER BY urunfoto_sira ASC LIMIT 1");
+				$urunfotosor->execute(array(
+					'urun_id' => $urun_id,
+				));
+
+				$urunfotocek = $urunfotosor->fetch(PDO::FETCH_ASSOC);
+				?>
 
 				<div class="item">
 					<div class="productwrap">
 						<div class="pr-img">
 							<div class="hot"></div>
-							<a href="urun-<?=seo($uruncek["urun_ad"]).'-'.$uruncek["urun_id"]?>"><img src="images\sample-1.jpg" alt="" class="img-responsive"></a>
+							<a href="urun-<?=seo($uruncek["urun_ad"]).'-'.$uruncek["urun_id"]?>"><img  height="150" src="<?php echo $urunfotocek['urunfoto_resimyol']; ?>" alt="" class="img-responsive"></a>
 							<div class="pricetag blue">
 								<div class="inner"><span><?php echo $uruncek['urun_fiyat']; ?>TL</span></div>
 							</div>

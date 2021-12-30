@@ -25,21 +25,38 @@ if ($urunsor->rowCount() == 0) {
             </div>
             <div class="row">
                 <div class="col-md-6">
+
+                    <?php
+                    $urun_id = $uruncek['urun_id'];
+
+                    $urunfotosor = $db->prepare("SELECT * FROM urunfoto WHERE urun_id=:urun_id ORDER BY urunfoto_sira ASC LIMIT 1");
+                    $urunfotosor->execute(array(
+                        'urun_id' => $urun_id,
+                    ));
+
+                    $urunfotocek = $urunfotosor->fetch(PDO::FETCH_ASSOC);
+                    ?>
                     <div class="dt-img">
                         <div class="detpricetag">
                             <div class="inner"><?php echo $uruncek['urun_fiyat']; ?></div>
                         </div>
-                        <a class="fancybox" href="images\sample-1.jpg" data-fancybox-group="gallery" title="Cras neque mi, semper leon"><img src="images\sample-1.jpg" alt="" class="img-responsive"></a>
+                        <a class="fancybox" href="" data-fancybox-group="gallery" title="Cras neque mi, semper leon"><img src="<?php echo $urunfotocek['urunfoto_resimyol']; ?>" alt="" class="img-responsive"></a>
                     </div>
-                    <div class="thumb-img">
-                        <a class="fancybox" href="images\sample-4.jpg" data-fancybox-group="gallery" title="Cras neque mi, semper leon"><img src="images\sample-4.jpg" alt="" class="img-responsive"></a>
-                    </div>
-                    <div class="thumb-img">
-                        <a class="fancybox" href="images\sample-5.jpg" data-fancybox-group="gallery" title="Cras neque mi, semper leon"><img src="images\sample-5.jpg" alt="" class="img-responsive"></a>
-                    </div>
-                    <div class="thumb-img">
-                        <a class="fancybox" href="images\sample-1.jpg" data-fancybox-group="gallery" title="Cras neque mi, semper leon"><img src="images\sample-1.jpg" alt="" class="img-responsive"></a>
-                    </div>
+
+                    <?php
+                    $urunfotosor = $db->prepare("SELECT * FROM urunfoto WHERE urun_id=:urun_id ORDER BY urunfoto_sira ASC LIMIT 1,3");
+                    $urunfotosor->execute(array(
+                        'urun_id' => $urun_id,
+                    ));
+
+                    while ($urunfotocek = $urunfotosor->fetch(PDO::FETCH_ASSOC)) { ?>
+
+                        <div class="thumb-img">
+                            <a class="fancybox" href="" data-fancybox-group="gallery" title="Cras neque mi, semper leon"><img src="<?php echo $urunfotocek['urunfoto_resimyol']; ?>" alt="" class="img-responsive"></a>
+                        </div>
+
+                    <?php } ?>
+
                 </div>
                 <div class="col-md-6 det-desc">
                     <div class="productdata">
@@ -59,7 +76,7 @@ if ($urunsor->rowCount() == 0) {
                         <form class="form-horizontal ava" action="nedmin/netting/islem.php" method="POST" role="form">
 
                             <div class="clearfix"></div>
-                            
+
                             <div class="form-group">
                                 <label for="qty" class="col-sm-2 control-label">Adet</label>
                                 <div class="col-sm-4">
@@ -128,27 +145,27 @@ if ($urunsor->rowCount() == 0) {
                             <script>
                                 alert("Yorum başarıyla eklendi!");
                             </script>
-                        
+
                         <?php }
-                        while ($yorumcek = $yorumsor->fetch(PDO::FETCH_ASSOC)) { 
-                            
+                        while ($yorumcek = $yorumsor->fetch(PDO::FETCH_ASSOC)) {
+
                             $ykullanicisor = $db->prepare("SELECT * FROM kullanici WHERE kullanici_id=:id");
-                            $ykullanicisor -> execute(array(
-                            'id' => $yorumcek['kullanici_id']
+                            $ykullanicisor->execute(array(
+                                'id' => $yorumcek['kullanici_id']
                             ));
                             $ykullanicicek = $ykullanicisor->fetch(PDO::FETCH_ASSOC);
 
                             $ykullanici_ad = $ykullanicicek['kullanici_adsoyad'];
-                            ?>
+                        ?>
                             <p class="dash">
-                                <span><?php echo $ykullanici_ad; ?> </span>(<?php echo $yorumcek['yorum_zaman']; ?>)    <br><br>
-                                <?php echo substr($yorumcek['yorum_detay'],0,100); ?>
+                                <span><?php echo $ykullanici_ad; ?> </span>(<?php echo $yorumcek['yorum_zaman']; ?>) <br><br>
+                                <?php echo substr($yorumcek['yorum_detay'], 0, 100); ?>
                             </p>
 
                         <?php }
                         ?>
 
-                        <h4>Yorum Yaz</h4>  
+                        <h4>Yorum Yaz</h4>
                         <?php
                         $url = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 

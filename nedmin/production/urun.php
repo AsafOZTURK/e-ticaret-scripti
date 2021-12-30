@@ -43,6 +43,7 @@ $urunsor->execute();
                                     <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
+                                                <th>Ürün Kodu</th>
                                                 <th>Ürün Adı</th>
                                                 <th>Ürün Fiyat</th>
                                                 <th>Ürün Stok</th>
@@ -58,6 +59,7 @@ $urunsor->execute();
                                             <?php
                                             while ($uruncek = $urunsor->fetch(PDO::FETCH_ASSOC)) { ?>
                                                 <tr>
+                                                    <td width="20"><?php echo $uruncek["urun_id"]; ?></td>
                                                     <td><?php echo $uruncek["urun_ad"]; ?></td>
                                                     <td><?php echo $uruncek["urun_fiyat"]; ?></td>
                                                     <td><?php echo $uruncek["urun_stok"]; ?></td>

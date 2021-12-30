@@ -5,6 +5,11 @@ session_start();
 include "baglan.php";
 include "../production/fonksiyon.php";
 
+// htmlspecialchars() girilebilecek zararlı kodları etkisiz hale getirir
+// strip_tags() girilen zararlı kodlardan html taglarını siler ve zarasız hale getiri
+// boş klasörlere Header("Location:../index.php"); yazılı php dosyası eklersek izinsiz erişimlerin önüne geçebiliriz
+// veritabanımıza herhangi bir dosya yüklerken boyutunu ve dosya biçimini uygun olarak kısıtlmalıyız
+
 
 if (isset($_POST["admingiris"])) {
 	$kullanicimail = $_POST["kullanici_mail"];
@@ -308,6 +313,21 @@ if (isset($_POST['sepeteekle'])) {
 
 if (isset($_POST['logoduzenle'])) {
 
+	if ($_FILES['ayar_logo']['size'] > 17400) { //dosya biçimi sorgulama
+		echo "Dosya boyutu çok büyük";
+		Header("Location:../production/genel-ayar.php?durum=dosyacokbuyuk");
+		exit;
+	}
+
+	$iziniuzantilar = array('jpeg','png','jpeg','gif');
+	$ext = strtolower(substr($_FILES['ayar_logo']["name"],strpos($_FILES['ayar_logo']["name"],'.')+1));
+
+	if (in_array($ext, $iziniuzantilar)=== false) {
+		echo "Dosya biçimi tanımsız";
+		Header("Location:../production/genel-ayar.php?durum=uzantıkabuledilmiyor");
+		exit;
+	}
+
 	$uploads_dir = '../../dimg';
 
 	@$tmp_name = $_FILES['ayar_logo']["tmp_name"];
@@ -320,8 +340,8 @@ if (isset($_POST['logoduzenle'])) {
 
 
 	$duzenle = $db->prepare("UPDATE ayar SET
-		ayar_logo=:logo
-		WHERE ayar_id=0");
+	ayar_logo=:logo
+	WHERE ayar_id=0");
 	$update = $duzenle->execute(array(
 		'logo' => $refimgyol
 	));
@@ -744,22 +764,20 @@ if ($_GET['urun_onecikar'] == "ok") {
 
 if (isset($_POST['urunfotosil'])) {
 
-	$urun_id = $_GET['urun_id'];
+	$urun_id = $_POST['urun_id'];
 	$chechklist = $_POST['urunfotosec'];
 
 	foreach ($chechklist as $list) {
-		$sil = $db -> prepare("SELECT * FROM urunfoto WHERE urunfoto_id=:fotoid");
-		$kontrol = $sil -> execute(array(
+		$sil = $db->prepare("DELETE FROM urunfoto WHERE urunfoto_id=:fotoid");
+		$kontrol = $sil->execute(array(
 			'fotoid' => $list
 		));
+	}
 
-		if ($kontrol) {
-			Header("Location:../production/urun-galeri.php?urun_id=$urun_id?durum=ok");
-
-		} else {
-			Header("Location:../production/urun-galeri.php?urun_id=$urun_id?durum=no");
-
-		}
+	if ($kontrol) {
+		Header("Location:../production/urun-galeri.php?urun_id=$urun_id?durum=ok");
+	} else {
+		Header("Location:../production/urun-galeri.php?urun_id=$urun_id?durum=no");
 	}
 }
 
@@ -944,7 +962,7 @@ if (isset($_POST['siparisekle'])) {
 			'id' => $kullanici_id
 		));
 
-		while($sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC)) {
+		while ($sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC)) {
 
 			$urun_id = $sepetcek['urun_id'];
 			$urun_adet = $sepetcek['urun_adet'];
@@ -974,8 +992,8 @@ if (isset($_POST['siparisekle'])) {
 
 			if ($insert) {
 				// İşlem başarılıysa sepetteki ürünlerimini sileriz
-				$sil = $db -> prepare("DELETE FROM sepet WHERE kullanici_id=:kullanici_id");
-				$kontrol = $sil -> execute(array(
+				$sil = $db->prepare("DELETE FROM sepet WHERE kullanici_id=:kullanici_id");
+				$kontrol = $sil->execute(array(
 					'kullanici_id' => $kullanici_id
 				));
 
@@ -983,10 +1001,8 @@ if (isset($_POST['siparisekle'])) {
 				exit;
 			}
 		}
-
 	} else {
 		Header("Location:../siparislerim.php?durum=no");
-
 	}
 }
 

@@ -118,14 +118,16 @@ $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
                                 <div class="srchwrap">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <form class="form-horizontal" role="form">
+
+                                            <form class="form-horizontal" method="POST" action="arama.php" role="form">
                                                 <div class="form-group">
-                                                    <label for="search" class="col-sm-2 control-label">Search</label>
+                                                    <button class="btn btn-default" name="arama" type="submit">Ara</button>
                                                     <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="search">
+                                                        <input type="text" name="aranan" minlength="3" class="form-control" id="search">
                                                     </div>
                                                 </div>
                                             </form>
+
                                         </div>
                                     </div>
                                 </div>
@@ -218,7 +220,7 @@ $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
                                             'id' => $kullanici_id
                                         ));
                                         $sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC);
-                                        $toplam = 0;    
+                                        $toplam = 0;
 
                                         while ($sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC)) {
                                             $urun_id = $sepetcek['urun_id'];
@@ -232,8 +234,8 @@ $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
 
                                             $a = $sepetcek['urun_adet'];
                                             $b = $uruncek['urun_fiyat'];
-                                            $c = $a * $b; 
-                        
+                                            $c = $a * $b;
+
                                             $toplam += $c;
                                         ?>
                                             <tr>
@@ -243,7 +245,7 @@ $kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC);
                                                 <td><a href="product.htm"><?php echo $uruncek['urun_ad']; ?></a><br><span></span></td>
                                                 <td><?php echo $sepetcek['urun_adet']; ?></td>
                                                 <td><?php echo $uruncek['urun_fiyat']; ?> TL</td>
-                                                <!-- <td><a href=""><i class="fa fa-times-circle fa-2x"></i></a></td> SİLME BUTONU --> 
+                                                <!-- <td><a href=""><i class="fa fa-times-circle fa-2x"></i></a></td> SİLME BUTONU -->
                                             </tr>
 
                                         <?php } ?>
