@@ -313,13 +313,13 @@ if (isset($_POST['sepeteekle'])) {
 
 if (isset($_POST['logoduzenle'])) {
 
-	if ($_FILES['ayar_logo']['size'] > 17400) { //dosya biçimi sorgulama
+	if ($_FILES['ayar_logo']['size'] > 171400) { //dosya biçimi sorgulama
 		echo "Dosya boyutu çok büyük";
 		Header("Location:../production/genel-ayar.php?durum=dosyacokbuyuk");
 		exit;
 	}
 
-	$iziniuzantilar = array('jpeg','png','jpeg','gif');
+	$iziniuzantilar = array('jpeg','png','jpg','gif');
 	$ext = strtolower(substr($_FILES['ayar_logo']["name"],strpos($_FILES['ayar_logo']["name"],'.')+1));
 
 	if (in_array($ext, $iziniuzantilar)=== false) {
@@ -993,6 +993,7 @@ if (isset($_POST['siparisekle'])) {
 			if ($insert) {
 				// İşlem başarılıysa sepetteki ürünlerimini sileriz
 				$sil = $db->prepare("DELETE FROM sepet WHERE kullanici_id=:kullanici_id");
+				
 				$kontrol = $sil->execute(array(
 					'kullanici_id' => $kullanici_id
 				));

@@ -42,7 +42,7 @@ include "header.php";
                                 <button class="btn btn-danger btn-xs">Ödeme Yapılamadı</button>
                             <?php } ?>
                         </td>
-                        <td><a href=""><button class="btn btn-success btn-xs">Detay</button></a></td>
+                        <td><a href="siparis-detay.php?siparis_id=<?php echo $sipariscek['siparis_id']; ?>"><button class="btn btn-success btn-xs">Detay</button></a></td>
                     </tr>
                 </tbody>
             <?php } ?>

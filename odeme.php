@@ -45,14 +45,14 @@ $sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC);
 
                         $uruncek = $urunsor->fetch(PDO::FETCH_ASSOC);
 
-                        
+
                         $a = $sepetcek['urun_adet'];
                         $b = $uruncek['urun_fiyat'];
                         $c = $a * $b;
 
                         $toplam += $c;
                     ?>
-                    <!-- <input type="hidden" name="urun_id[]" value="<?php echo $uruncek['urun_id'] ?>"> -->
+                        <!-- <input type="hidden" name="urun_id[]" value="<?php echo $uruncek['urun_id'] ?>"> -->
                         <tr>
                             <td width="40"><?php echo $b = $uruncek['urun_id']; ?></td>
                             <td><img src="images\demo-img.jpg" width="60"></td>
@@ -85,11 +85,14 @@ $sepetcek = $sepetsor->fetch(PDO::FETCH_ASSOC);
             <li><a href="#rev" data-toggle="tab">Banka Havalesi </a></li>
         </ul>
         <div id="myTabContent" class="tab-content shop-tab-ct">
+
             <div class="tab-pane fade active in" id="desc">
-                <p>
-                    Entegrasyon Tamamlanmadı.
-                </p>
+                <div class="row">
+                    <?php include "iyzico/buyer.php"; ?>
+                    <div id="iyzipay-checkout-form" class="responsive"></div>
+                </div>
             </div>
+            
             <div class="tab-pane fade " id="rev">
                 <p>Ödeme yapacağınız hesap numarasını seçerek işlemi tamamlayınız.</p>
 
